@@ -33,6 +33,7 @@ public class PlayerMovementManager : MonoBehaviour
 
     public MovementState State;
 
+
     public enum MovementState
     {
         crouching,
@@ -101,7 +102,7 @@ public class PlayerMovementManager : MonoBehaviour
         {
             rb.AddForce(GetSlopeMoveDir(moveDirection) * moveSpeed * 20f, ForceMode.Force);
 
-            if(rb.velocity.y > 0)
+            if (rb.velocity.y > 0)
             {
                 rb.AddForce(Vector3.down * 80f, ForceMode.Force);
             }

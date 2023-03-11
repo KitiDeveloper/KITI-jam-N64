@@ -15,14 +15,14 @@ public class PlayerSlideManager : MonoBehaviour
     public PlayerCrouchManager crouchManager;
 
     [Header("Sliding")]
-    public float maxSlideTime = 1;
+    public float maxSlideTime = 0.7f;
     public float slideForce = 200;
     private float slideTimer;
 
     public float slideYScale;
     private float startYScale;
 
-    private bool sliding;
+    public bool sliding;
 
     void Start()
     {
@@ -53,20 +53,28 @@ public class PlayerSlideManager : MonoBehaviour
     {
         sliding = true;
 
-        crouchManager.playerStance = PlayerCrouchManager.PlayerStance.LowCrouch;
-
         slideTimer = maxSlideTime;
     }
 
     private void SlidingMovement()
     {
         Vector3 inputDirection = orientation.forward * inputManager.verticalInput + orientation.right * inputManager.horizontalInput;
+        crouchManager.LowCrouchEvent();
 
-        rb.AddForce(inputDirection.normalized * slideForce, ForceMode.Force);
+        //Normal sliding
+        if(!pm.OnSlope() || rb.velocity.y > -0.1f)
+        {
+            rb.AddForce(inputDirection.normalized * slideForce, ForceMode.Force);
 
-        slideTimer -= Time.deltaTime;
+            slideTimer -= Time.deltaTime;
+        }
+        //Slope sliding
+        else
+        {
+            rb.AddForce(pm.GetSlopeMoveDir(inputDirection) * slideForce, ForceMode.Force);
+        }
 
-        if(slideTimer <= 0)
+        if (slideTimer <= 0 && !crouchManager.StanceCheck(crouchManager.capsuleStandHeight))
         {
             StopSlide();
         }
