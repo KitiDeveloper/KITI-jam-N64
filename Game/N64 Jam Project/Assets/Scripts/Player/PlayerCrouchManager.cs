@@ -64,13 +64,18 @@ public class PlayerCrouchManager : MonoBehaviour
 
     public void InputHandler()
     {
-        if (Input.GetKeyDown(playerInput.CrouchKey) && fPEngine.canCrouch && movementManager.grounded)
+        if (Input.GetKeyDown(playerInput.CrouchKey) && fPEngine.canCrouch)
         {
             CrouchEvent();
         }
         else if (Input.GetKeyDown(playerInput.LowCrouchKey) && fPEngine.canCrouch && movementManager.grounded)
         {
             LowCrouchEvent();
+        }
+        else if (Input.GetKey(playerInput.SprintKey) && !lowCrouching)
+        {
+            playerStance = PlayerStance.Stand;
+            crouching = false;
         }
     }
 

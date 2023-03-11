@@ -13,6 +13,7 @@ public class PlayerInputManager : MonoBehaviour
     public KeyCode CrouchKey = KeyCode.LeftControl;
     public KeyCode LowCrouchKey = KeyCode.Z;
     public KeyCode thrownWeaponKey = KeyCode.G;
+    public KeyCode SlideKey = KeyCode.LeftAlt;
 
     void Update()
     {
