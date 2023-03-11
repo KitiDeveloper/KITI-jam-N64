@@ -44151,6 +44151,7 @@ MonoBehaviour:
   CrouchKey: 306
   LowCrouchKey: 122
   thrownWeaponKey: 103
+  SlideKey: 308
 --- !u!114 &1802151063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44181,7 +44182,7 @@ MonoBehaviour:
   standStanceCenter: {x: 0, y: 0, z: 0}
   crouchStanceCenter: {x: 0, y: -0.212, z: 0}
   lowCrouchStanceCenter: {x: 0, y: -0.425, z: 0}
-  playerStanceSmoothing: 0.6
+  playerStanceSmoothing: 0.2
   playerMask:
     serializedVersion: 2
     m_Bits: 63

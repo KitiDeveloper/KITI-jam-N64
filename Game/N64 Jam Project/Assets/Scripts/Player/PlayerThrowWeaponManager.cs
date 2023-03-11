@@ -9,6 +9,7 @@ public class PlayerThrowWeaponManager : MonoBehaviour
     public Transform attackPoint;
     public GameObject objectToThrow;
     public PlayerInputManager inputManager;
+    public PlayerCrouchManager crouchManager;
 
     [Header("Settings")]
     public int totalThrows;
