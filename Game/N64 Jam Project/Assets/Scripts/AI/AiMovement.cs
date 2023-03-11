@@ -6,12 +6,11 @@ using UnityEngine.AI;
 public class AiMovement : MonoBehaviour
 {
 
-    private NavMeshAgent agent;
+    [SerializeField] private NavMeshAgent agent;
     private GameObject player;
     // Start is called before the first frame update
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
