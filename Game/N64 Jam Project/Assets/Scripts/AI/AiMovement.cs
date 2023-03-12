@@ -6,7 +6,8 @@ using UnityEngine.AI;
 public class AiMovement : MonoBehaviour
 {
 
-    [SerializeField] private NavMeshAgent agent;
+    [SerializeField] private NavMeshAgent _agent;
+    [SerializeField] private AiVision _vision;
     private GameObject player;
     // Start is called before the first frame update
     void Start()
@@ -17,6 +18,17 @@ public class AiMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        agent.SetDestination(player.transform.position);
+        if(_agent.remainingDistance < 0.5)
+        {
+            _vision.TargetReached();
+        }
+    }
+
+
+
+
+    public void UpdateMovementTarget(Vector3 target)
+    {
+        _agent.SetDestination(target);
     }
 }
