@@ -14,6 +14,7 @@ public class PlayerCrouchManager : MonoBehaviour
     public Transform camHolder;
     public Transform feetTransform;
     public CapsuleCollider playerObj;
+    public PlayerSlideManager slideManager;
 
     public bool crouching = false;
     public bool lowCrouching = false;
@@ -68,14 +69,17 @@ public class PlayerCrouchManager : MonoBehaviour
         {
             CrouchEvent();
         }
-        else if (Input.GetKeyDown(playerInput.LowCrouchKey) && fPEngine.canCrouch && movementManager.grounded)
+        else if (Input.GetKeyDown(playerInput.LowCrouchKey) && fPEngine.canCrouch)
         {
             LowCrouchEvent();
         }
-        else if (Input.GetKey(playerInput.SprintKey) && !lowCrouching)
+        else if (Input.GetKey(playerInput.SprintKey) && !slideManager.sliding)
         {
+            if (StanceCheck(capsuleStandHeight)) { return; }
+
             playerStance = PlayerStance.Stand;
             crouching = false;
+            lowCrouching = false;
         }
     }
 
@@ -130,9 +134,9 @@ public class PlayerCrouchManager : MonoBehaviour
         playerStance = PlayerStance.Crouch;
     }
 
-    private void LowCrouchEvent()
+    public void LowCrouchEvent()
     {
-        lowCrouching = true;
+        if(!slideManager.sliding) { lowCrouching = true; }
 
         if (playerStance == PlayerStance.LowCrouch)
         {
@@ -150,7 +154,7 @@ public class PlayerCrouchManager : MonoBehaviour
         playerStance = PlayerStance.LowCrouch;
     }
 
-    private bool StanceCheck(float stanceCheckHeight)
+    public bool StanceCheck(float stanceCheckHeight)
     {
         stanceCheckHeight = stanceCheckHeight * 0.6f;
 

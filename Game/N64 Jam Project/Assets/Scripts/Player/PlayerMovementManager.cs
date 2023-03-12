@@ -33,6 +33,7 @@ public class PlayerMovementManager : MonoBehaviour
 
     public MovementState State;
 
+
     public enum MovementState
     {
         crouching,
@@ -54,13 +55,13 @@ public class PlayerMovementManager : MonoBehaviour
         if (crouchManager.crouching)
         {
             State = MovementState.crouching;
-            moveSpeed = crouchSpeed;
+            if (grounded) { moveSpeed = crouchSpeed; }
         }
 
         else if (crouchManager.lowCrouching)
         {
             State = MovementState.crouching;
-            moveSpeed = lowCrouchSpeed;
+            if(grounded) { moveSpeed = lowCrouchSpeed; }
         }
 
         //When sprinting
@@ -99,9 +100,9 @@ public class PlayerMovementManager : MonoBehaviour
 
         if (OnSlope() && !exitingSlope)
         {
-            rb.AddForce(GetSlopeMoveDir() * moveSpeed * 20f, ForceMode.Force);
+            rb.AddForce(GetSlopeMoveDir(moveDirection) * moveSpeed * 20f, ForceMode.Force);
 
-            if(rb.velocity.y > 0)
+            if (rb.velocity.y > 0)
             {
                 rb.AddForce(Vector3.down * 80f, ForceMode.Force);
             }
@@ -132,7 +133,7 @@ public class PlayerMovementManager : MonoBehaviour
         }
     }
 
-    private bool OnSlope()
+    public bool OnSlope()
     {
         if(Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + 0.3f))
         {
@@ -143,8 +144,8 @@ public class PlayerMovementManager : MonoBehaviour
         return false;
     }
 
-    private Vector3 GetSlopeMoveDir()
+    public Vector3 GetSlopeMoveDir(Vector3 direction)
     {
-        return Vector3.ProjectOnPlane(moveDirection, slopeHit.normal).normalized;
+        return Vector3.ProjectOnPlane(direction, slopeHit.normal).normalized;
     }
 }

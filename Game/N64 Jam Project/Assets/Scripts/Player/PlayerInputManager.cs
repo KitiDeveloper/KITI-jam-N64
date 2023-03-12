@@ -10,10 +10,10 @@ public class PlayerInputManager : MonoBehaviour
     [Header("KeyBinds")]
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode SprintKey = KeyCode.LeftShift;
-    public KeyCode CrouchKey = KeyCode.LeftControl;
+    public KeyCode CrouchKey = KeyCode.C;
     public KeyCode LowCrouchKey = KeyCode.Z;
     public KeyCode thrownWeaponKey = KeyCode.G;
-    public KeyCode SlideKey = KeyCode.LeftAlt;
+    public KeyCode SlideKey = KeyCode.LeftControl;
 
     void Update()
     {
