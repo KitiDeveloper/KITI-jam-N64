@@ -41,8 +41,16 @@ public class FirstPersonEngine : MonoBehaviour
 
     void Update()
     {
-        if(canJump) { jumpManager.JumpUpdate(); }
-        if(canMove) { movementManager.MovementUpdate(); movementManager.StateHandler(); }
+        if (canJump)
+        {
+            jumpManager.JumpUpdate();
+        }
+        if(canMove) 
+        {
+            movementManager.MovementUpdate(); 
+            movementManager.StateHandler();
+            
+        }
     }
 
     private void FixedUpdate()
