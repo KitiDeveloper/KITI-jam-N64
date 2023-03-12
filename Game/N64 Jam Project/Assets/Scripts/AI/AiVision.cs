@@ -1,10 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Experimental.Playables;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
-using UnityEngine.UIElements;
 
 
 enum VisionState
