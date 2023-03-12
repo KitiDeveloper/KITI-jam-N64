@@ -12,7 +12,7 @@ public class PlayerJumpManager : MonoBehaviour
 
     [NonSerialized] public float jumpForce;
     [NonSerialized] public float jumpCooldown;
-    private bool readyToJump = true;
+    public bool readyToJump = true;
 
     public void JumpUpdate()
     {
@@ -26,7 +26,7 @@ public class PlayerJumpManager : MonoBehaviour
         }
     }
 
-    private void JumpEvent()
+    public void JumpEvent()
     {
         movementManager.exitingSlope = true;
 
@@ -36,7 +36,7 @@ public class PlayerJumpManager : MonoBehaviour
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
 
-    private void ResetJumpEvent()
+    public void ResetJumpEvent()
     {
         readyToJump = true;
 

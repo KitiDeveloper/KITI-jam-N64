@@ -19,15 +19,7 @@ public class PlayerSlideManager : MonoBehaviour
     public float slideForce = 200;
     private float slideTimer;
 
-    public float slideYScale;
-    private float startYScale;
-
     public bool sliding;
-
-    void Start()
-    {
-        startYScale = playerObj.localScale.y;
-    }
 
     void Update()
     {
