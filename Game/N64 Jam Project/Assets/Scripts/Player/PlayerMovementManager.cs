@@ -10,6 +10,7 @@ public class PlayerMovementManager : MonoBehaviour
     [NonSerialized] public float crouchSpeed;
     [NonSerialized] public float walkSpeed;
     [NonSerialized] public float sprintSpeed;
+    [NonSerialized] public float wallSprintSpeed = 12;
     [NonSerialized] public float groundDrag = 5;
     [NonSerialized] public float inAirSpeed = 0.2f;
     [NonSerialized] public float playerHeight;
@@ -26,6 +27,7 @@ public class PlayerMovementManager : MonoBehaviour
     public PlayerInputManager playerInput;
     public FirstPersonEngine fPEngine;
     public PlayerCrouchManager crouchManager;
+    public PlayerWallRunManager wallRunManager;
 
     private Vector3 moveDirection;
     private Rigidbody rb;
@@ -39,6 +41,7 @@ public class PlayerMovementManager : MonoBehaviour
         crouching,
         walking,
         sprinting,
+        wallSprinting,
         air
     }
 
@@ -51,8 +54,15 @@ public class PlayerMovementManager : MonoBehaviour
 
     public void StateHandler()
     {
+        //When wall running/sprinting
+        if (wallRunManager.isWallRunning)
+        {
+            State = MovementState.wallSprinting;
+            moveSpeed = wallSprintSpeed;
+        }
+
         //When crouching
-        if (crouchManager.crouching)
+        else if (crouchManager.crouching)
         {
             State = MovementState.crouching;
             if (grounded) { moveSpeed = crouchSpeed; }
