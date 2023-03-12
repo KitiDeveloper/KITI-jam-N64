@@ -4,17 +4,19 @@ using UnityEngine;
 enum VisionState
 {
     PlayerUnseen,
-    PlayerInVision,
+    Chase,
     LKP,
+    Attack,
 }
 public class AiVision : MonoBehaviour
 {
 
     //Object 
     private GameObject _player;
-    [SerializeField] private GameObject AiComponent;
+    [SerializeField] private GameObject AIMainGameObject;
     [SerializeField] private AiMovement AiMovement;
     [SerializeField] private AIInterestPoint AIInterestPoint;
+    [SerializeField] private AiShoot AIShoot;
 
     //State
     private VisionState _visionState;
@@ -38,15 +40,15 @@ public class AiVision : MonoBehaviour
     }
 
 
-    private bool PlayerInFOV()
+    private bool PlayerInLOS()
     {
-        if(Vector3.Distance(_player.transform.position, AiComponent.transform.position) < FOVDistance)
+        if(Vector3.Distance(_player.transform.position, AIMainGameObject.transform.position) < FOVDistance)
         {
-            Vector3 directionToPlayer = _player.transform.position - AiComponent.transform.position;
+            Vector3 directionToPlayer = _player.transform.position - AIMainGameObject.transform.position;
 
-            if(Vector3.Angle(directionToPlayer, AiComponent.transform.forward) < FOVAngle/2) {
+            if(Vector3.Angle(directionToPlayer, AIMainGameObject.transform.forward) < FOVAngle/2) {
                 RaycastHit hit;
-                if (Physics.Raycast(AiComponent.transform.position, _player.transform.position - AiComponent.transform.position, out hit, FOVDistance))
+                if (Physics.Raycast(AIMainGameObject.transform.position, _player.transform.position - AIMainGameObject.transform.position, out hit, FOVDistance))
                 {
                     if(hit.transform && hit.transform.gameObject == _player)
                     {
@@ -61,14 +63,24 @@ public class AiVision : MonoBehaviour
 
     private void UpdateState()
     {
-        if (PlayerInFOV())
+        if (PlayerInLOS())
         {
-            _visionState = VisionState.PlayerInVision;
-            AiMovement.UpdateMovementTarget(_player.transform.position);
+            if (AIShoot.canShoot())
+            {
+                AIShoot.Attack();
+                _visionState = VisionState.Attack;
+                AiMovement.UpdateMovementTarget(AIMainGameObject.transform.position);
+            }
+            else
+            {
+                _visionState = VisionState.Chase;
+                AiMovement.UpdateMovementTarget(_player.transform.position);
+            }
+            
         }
         else
         {
-            if (_visionState == VisionState.PlayerInVision)
+            if (_visionState == VisionState.Chase || _visionState == VisionState.Attack)
             {
                 _visionState = VisionState.LKP;
                 _lkpPosition = _player.transform.position;
@@ -78,6 +90,12 @@ public class AiVision : MonoBehaviour
             {
                 AiMovement.UpdateMovementTarget(AIInterestPoint.NextInterestPoint());
             }
+        }
+
+        //Stop the AI to shoot if it's not the good state
+        if(_visionState != VisionState.Attack)
+        {
+            AIShoot.StopAttack();
         }
     }
 
