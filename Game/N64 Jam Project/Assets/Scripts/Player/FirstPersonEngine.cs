@@ -12,7 +12,7 @@ public class FirstPersonEngine : MonoBehaviour
     [Header("Engine workers")]
     public PlayerMovementManager movementManager;
     public PlayerJumpManager jumpManager;
-    public PlayerInputManager playerInput;
+    //public PlayerInputManager playerInput;
     public PlayerCrouchManager crouchManager;
 
     [Header("Player stats")]
@@ -24,6 +24,8 @@ public class FirstPersonEngine : MonoBehaviour
     public float jumpForce = 6.0f;
     public float jumpCooldown = 1.5f;
     public float maxSlopeAngle = 40.0f;
+
+    private Gun gun;
 
     void Awake()
     {
@@ -50,6 +52,16 @@ public class FirstPersonEngine : MonoBehaviour
             movementManager.MovementUpdate(); 
             movementManager.StateHandler();
             
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (!gun)
+            {
+                gun = GetComponentInChildren<Gun>();
+                if (!gun) return;
+            }
+            gun.Shoot();
         }
     }
 
