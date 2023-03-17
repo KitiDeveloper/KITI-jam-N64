@@ -56046,13 +56046,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1802151057}
   - component: {fileID: 1802151058}
-  - component: {fileID: 1802151062}
   - component: {fileID: 1802151061}
-  - component: {fileID: 1802151059}
-  - component: {fileID: 1802151060}
-  - component: {fileID: 1802151063}
-  - component: {fileID: 1802151064}
-  - component: {fileID: 1802151065}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -56096,45 +56090,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &1802151059
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1802151056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a467b27f2fe4d247a693ce7710e053b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 8
-  orientation: {fileID: 277493845}
-  playerObj: {fileID: 338396127}
-  playerInput: {fileID: 1802151062}
-  fPEngine: {fileID: 1802151061}
-  crouchManager: {fileID: 1802151063}
-  wallRunManager: {fileID: 1802151065}
-  State: 0
---- !u!114 &1802151060
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1802151056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ff458cfe6891f148872a2d0426a6b52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerInput: {fileID: 1802151062}
-  movementManager: {fileID: 1802151059}
-  rb: {fileID: 1802151058}
-  crouchManager: {fileID: 1802151063}
-  readyToJump: 1
 --- !u!114 &1802151061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56150,58 +56105,34 @@ MonoBehaviour:
   canMove: 1
   canJump: 1
   canCrouch: 1
-  movementManager: {fileID: 1802151059}
-  jumpManager: {fileID: 1802151060}
-  playerInput: {fileID: 1802151062}
-  crouchManager: {fileID: 1802151063}
+  orientation: {fileID: 277493845}
+  playerObj: {fileID: 338396127}
+  camHolder: {fileID: 1582324021}
+  feetTransform: {fileID: 742141003}
   inAirSpeed: 0.1
+  lowCrouchSpeed: 1.5
   crouchSpeed: 3.5
   walkSpeed: 4
   sprintSpeed: 8
+  wallSprintSpeed: 12
   groundDrag: 5
   jumpForce: 6
   jumpCooldown: 0.5
   maxSlopeAngle: 50
---- !u!114 &1802151062
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1802151056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb25545c08bceb944899bdec40eb8aa8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  horizontalInput: 0
-  verticalInput: 0
+  playerHeight: 0
   jumpKey: 32
   SprintKey: 304
   CrouchKey: 99
   LowCrouchKey: 122
   thrownWeaponKey: 103
   SlideKey: 306
---- !u!114 &1802151063
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1802151056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d328d96530671fb4386fe3b1cb028ece, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerInput: {fileID: 1802151062}
-  fPEngine: {fileID: 1802151061}
-  movementManager: {fileID: 1802151059}
-  rb: {fileID: 1802151058}
-  camHolder: {fileID: 1582324021}
-  feetTransform: {fileID: 742141003}
-  playerObj: {fileID: 338396127}
-  slideManager: {fileID: 1802151064}
+  grounded: 0
+  exitingSlope: 0
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 8
+  State: 0
+  moveSpeed: 0
   crouching: 0
   lowCrouching: 0
   cameraStandHeight: 0.7
@@ -56218,56 +56149,19 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 63
   playerStance: 0
---- !u!114 &1802151064
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1802151056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9626bf7f4e3e0284ab8f28f44a936854, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputManager: {fileID: 1802151062}
-  orientation: {fileID: 277493845}
-  playerObj: {fileID: 338396126}
-  rb: {fileID: 1802151058}
-  pm: {fileID: 1802151059}
-  crouchManager: {fileID: 1802151063}
   maxSlideTime: 0.7
-  slideForce: 300
+  slideForce: 200
   sliding: 0
---- !u!114 &1802151065
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1802151056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cc79d4371f747945b9c3d24cc65a414, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  orientation: {fileID: 277493845}
-  movementManager: {fileID: 1802151059}
-  rb: {fileID: 1802151058}
-  inputManager: {fileID: 1802151062}
-  jumpManager: {fileID: 1802151060}
   whatIsWall:
     serializedVersion: 2
     m_Bits: 128
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 8
   wallRunForce: 400
   maxWallRunTime: 2
   wallRunTimer: 0
   wallCheckDistence: 0.7
   minJumpHeight: 1
   isWallRunning: 0
+  readyToJump: 1
 --- !u!43 &1802819385
 Mesh:
   m_ObjectHideFlags: 0
