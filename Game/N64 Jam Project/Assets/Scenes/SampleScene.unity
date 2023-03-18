@@ -56115,7 +56115,7 @@ MonoBehaviour:
   walkSpeed: 4
   sprintSpeed: 8
   wallSprintSpeed: 12
-  groundDrag: 5
+  groundDrag: 4
   jumpForce: 6
   jumpCooldown: 0.5
   maxSlopeAngle: 50

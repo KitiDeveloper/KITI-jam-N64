@@ -557,6 +557,8 @@ public class FirstPersonEngine : MonoBehaviour
     {
         wallRunTimer = maxWallRunTime;
 
+        rb.useGravity = true;
+
         isWallRunning = false;
     }
 
