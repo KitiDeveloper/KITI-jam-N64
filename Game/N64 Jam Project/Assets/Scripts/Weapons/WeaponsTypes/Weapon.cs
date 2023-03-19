@@ -18,8 +18,10 @@ public abstract class Weapon : MonoBehaviour
         {
             _timeBeforeNextShoot = 1 / (_attackSpeed);
             GameObject tempBullet = Instantiate(_bullet);
+            tempBullet.transform.position = this.transform.position;
             tempBullet.transform.Find("BulletMovement").GetComponent<BulletMovement>().Target = target.transform.position;
             Destroy(tempBullet, 5f);
+            _currentBullets--;
         }
         else
         {

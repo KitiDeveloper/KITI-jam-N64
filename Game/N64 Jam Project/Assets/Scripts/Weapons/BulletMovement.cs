@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class BulletMovement : MonoBehaviour
 {
@@ -11,7 +12,9 @@ public class BulletMovement : MonoBehaviour
     void Update()
     {
         Vector3 direction = (Target - transform.position).normalized;
-        // Déplacer la balle vers la cible
-        transform.position += direction * _speed * Time.deltaTime;
+        transform.parent.GetComponent<Rigidbody>().velocity = (Target - this.transform.parent.position).normalized * _speed;
+        Debug.Log(direction);
+        Debug.Log(transform.parent.GetComponent<Rigidbody>().velocity);
+        Debug.Log((Target - this.transform.parent.position).normalized * _speed);
     }
 }
