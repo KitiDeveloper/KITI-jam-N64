@@ -282,6 +282,7 @@ MonoBehaviour:
   AiMovement: {fileID: 2784483657464414651}
   AIInterestPoint: {fileID: 2784483658059786488}
   AIWeaponHolder: {fileID: 2784483657241046442}
+  AIRenderer: {fileID: 2784483657329021051}
   FOVDistance: 30
   FOVAngle: 120
 --- !u!114 &2784483658059786488

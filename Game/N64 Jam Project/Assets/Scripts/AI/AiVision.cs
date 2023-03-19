@@ -1,3 +1,4 @@
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 
 
@@ -17,6 +18,7 @@ public class AiVision : MonoBehaviour
     [SerializeField] private AiMovement AiMovement;
     [SerializeField] private AIInterestPoint AIInterestPoint;
     [SerializeField] private AiWeaponHolder AIWeaponHolder;
+    [SerializeField] private Renderer AIRenderer;
 
     //State
     private VisionState _visionState;
@@ -37,6 +39,7 @@ public class AiVision : MonoBehaviour
     void Update()
     {
         UpdateState();
+        UpdateColor();
     }
 
 
@@ -63,7 +66,6 @@ public class AiVision : MonoBehaviour
 
     private void UpdateState()
     {
-        Debug.Log(_visionState);
         if (PlayerInLOS())
         {
             if (AIWeaponHolder.HasRange())
@@ -103,6 +105,23 @@ public class AiVision : MonoBehaviour
         }else if(_visionState == VisionState.LKP)
         {
             _visionState = VisionState.PlayerUnseen;
+        }
+    }
+
+    private void UpdateColor()
+    {
+        if(_visionState == VisionState.PlayerUnseen)
+        {
+            AIRenderer.material.color = Color.white;
+        }else if(_visionState == VisionState.Chase)
+        {
+            AIRenderer.material.color = Color.yellow;
+        }else if(_visionState == VisionState.Attack)
+        {
+            AIRenderer.material.color = Color.red;
+        }else if(_visionState == VisionState.LKP)
+        {
+            AIRenderer.material.color = Color.blue;
         }
     }
 }
