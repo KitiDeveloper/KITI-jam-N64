@@ -156,7 +156,7 @@ public class FirstPersonEngine : MonoBehaviour
         CalculateCameraHeight();
         InputHandler();
 
-        if (Input.GetKeyDown(SlideKey) && (horizontalInput != 0 || verticalInput != 0) && !crouching && !lowCrouching)
+        if (Input.GetKeyDown(SlideKey) && (verticalInput > 0) && !crouching && !lowCrouching)
         {
             StartSlide();
         }
@@ -305,8 +305,6 @@ public class FirstPersonEngine : MonoBehaviour
 
         if (grounded == true) { rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force); }
         else if (grounded == false) { rb.AddForce(moveDirection.normalized * moveSpeed * 10f * inAirSpeed, ForceMode.Force); }
-
-        rb.useGravity = !OnSlope();
     }
 
     private void SpeedControl()
@@ -330,7 +328,7 @@ public class FirstPersonEngine : MonoBehaviour
 
     public bool OnSlope()
     {
-        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + 0.3f))
+        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + 0.5f))
         {
             float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
             return angle < maxSlopeAngle && angle != 0;
@@ -472,8 +470,10 @@ public class FirstPersonEngine : MonoBehaviour
         Vector3 inputDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         LowCrouchEvent();
 
+        if(!sliding) { return; }
+
         //Normal sliding
-        if (OnSlope() || rb.velocity.y > -0.1f)
+        if (!OnSlope() || rb.velocity.y > -0.1f)
         {
             rb.AddForce(inputDirection.normalized * slideForce, ForceMode.Force);
 
@@ -485,7 +485,7 @@ public class FirstPersonEngine : MonoBehaviour
             rb.AddForce(GetSlopeMoveDir(inputDirection) * slideForce, ForceMode.Force);
         }
 
-        if (slideTimer <= 0 && !StanceCheck(capsuleStandHeight))
+        if (slideTimer <= 0)
         {
             StopSlide();
         }
@@ -493,6 +493,8 @@ public class FirstPersonEngine : MonoBehaviour
 
     private void StopSlide()
     {
+        if(StanceCheck(capsuleStandHeight)) { playerStance = PlayerStance.LowCrouch; sliding = false; lowCrouching = true; return; }
+
         sliding = false;
 
         playerStance = PlayerStance.Stand;
@@ -554,6 +556,8 @@ public class FirstPersonEngine : MonoBehaviour
     private void StopWallRunEvent()
     {
         wallRunTimer = maxWallRunTime;
+
+        rb.useGravity = true;
 
         isWallRunning = false;
     }
