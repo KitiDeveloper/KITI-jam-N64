@@ -29,7 +29,7 @@ public class AiWeaponHolder : MonoBehaviour
         }
 
     }
-    z
+
     private void Update()
     {
         Shoot();
