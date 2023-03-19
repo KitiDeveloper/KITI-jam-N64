@@ -11,8 +11,6 @@ public class AiWeaponHolder : MonoBehaviour
 
     Vector3 handPosition;
 
-    public bool IsShooting = true;
-
     private void Start()
     {
         _player = GameObject.FindGameObjectWithTag("Player");
@@ -25,14 +23,8 @@ public class AiWeaponHolder : MonoBehaviour
         else
         {
             currentWeapon = transform.GetChild(0).Find("Weapon").GetComponent<Weapon>();
-            Debug.Log(currentWeapon);
         }
 
-    }
-
-    private void Update()
-    {
-        Shoot();
     }
 
     public void TakeWeapon(GameObject weapon)
@@ -40,12 +32,14 @@ public class AiWeaponHolder : MonoBehaviour
         currentWeapon = weapon.GetComponent<Weapon>();
     }
 
-    private void Shoot()
+    public void Shoot()
     {
-        if (IsShooting)
-        {
-            currentWeapon.Shoot(_player);
-        }
+        currentWeapon.Shoot(_player);
         
+    }
+
+    public bool HasRange()
+    {
+        return currentWeapon.HasRange(_player);
     }
 }

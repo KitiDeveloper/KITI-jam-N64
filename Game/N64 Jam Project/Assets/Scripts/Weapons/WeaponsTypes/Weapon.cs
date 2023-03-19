@@ -12,6 +12,7 @@ public abstract class Weapon : MonoBehaviour
     public float _attackSpeed;  //Number of attacks per second
     public float _timeBeforeNextShoot;
     public bool _reloading;
+    public float _attackDistance;
     public  void Shoot(GameObject target)
     {
         if (CanShoot())
@@ -46,6 +47,18 @@ public abstract class Weapon : MonoBehaviour
     public bool CanShoot()
     {
         if (_timeBeforeNextShoot <= 0 && _currentBullets > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public bool HasRange(GameObject target)
+    {
+        if(Vector3.Distance(target.transform.position, this.transform.position) < _attackDistance)
         {
             return true;
         }

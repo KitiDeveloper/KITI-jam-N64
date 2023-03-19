@@ -13,8 +13,5 @@ public class BulletMovement : MonoBehaviour
     {
         Vector3 direction = (Target - transform.position).normalized;
         transform.parent.GetComponent<Rigidbody>().velocity = (Target - this.transform.parent.position).normalized * _speed;
-        Debug.Log(direction);
-        Debug.Log(transform.parent.GetComponent<Rigidbody>().velocity);
-        Debug.Log((Target - this.transform.parent.position).normalized * _speed);
     }
 }

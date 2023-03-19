@@ -16,7 +16,7 @@ public class AiVision : MonoBehaviour
     [SerializeField] private GameObject AIMainGameObject;
     [SerializeField] private AiMovement AiMovement;
     [SerializeField] private AIInterestPoint AIInterestPoint;
-    [SerializeField] private AiShoot AIShoot;
+    [SerializeField] private AiWeaponHolder AIWeaponHolder;
 
     //State
     private VisionState _visionState;
@@ -63,11 +63,12 @@ public class AiVision : MonoBehaviour
 
     private void UpdateState()
     {
+        Debug.Log(_visionState);
         if (PlayerInLOS())
         {
-            if (AIShoot.canShoot())
+            if (AIWeaponHolder.HasRange())
             {
-                AIShoot.Attack();
+                AIWeaponHolder.Shoot();
                 _visionState = VisionState.Attack;
                 AiMovement.UpdateMovementTarget(AIMainGameObject.transform.position);
             }
@@ -90,12 +91,6 @@ public class AiVision : MonoBehaviour
             {
                 AiMovement.UpdateMovementTarget(AIInterestPoint.NextInterestPoint());
             }
-        }
-
-        //Stop the AI to shoot if it's not the good state
-        if(_visionState != VisionState.Attack)
-        {
-            AIShoot.StopAttack();
         }
     }
 
