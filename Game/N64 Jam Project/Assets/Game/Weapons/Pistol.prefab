@@ -113,6 +113,39 @@ Transform:
   m_Father: {fileID: 1550804871482043297}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3148765744969389084
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 1785435777294800262, guid: 1f01a7aea7ce1e9419915423dfb24a86,
+    type: 3}
+  m_PrefabInstance: {fileID: 1550804870382380238}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 434988917004446706}
+  m_Layer: 0
+  m_Name: 'Pistol_00 (Missing Prefab with guid: 1f01a7aea7ce1e9419915423dfb24a86)'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &434988917004446706
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 1408769947456130876, guid: 1f01a7aea7ce1e9419915423dfb24a86,
+    type: 3}
+  m_PrefabInstance: {fileID: 1550804870382380238}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3148765744969389084}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1550804871823083244}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1550804870382380238
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -182,9 +215,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f01a7aea7ce1e9419915423dfb24a86, type: 3}
---- !u!4 &434988917004446706 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1408769947456130876, guid: 1f01a7aea7ce1e9419915423dfb24a86,
-    type: 3}
-  m_PrefabInstance: {fileID: 1550804870382380238}
-  m_PrefabAsset: {fileID: 0}
