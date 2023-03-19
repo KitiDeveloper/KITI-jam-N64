@@ -46491,7 +46491,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh29560
+  m_Name: pb_Mesh28242
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -56133,6 +56133,7 @@ MonoBehaviour:
     m_Bits: 8
   State: 0
   moveSpeed: 0
+  momentumTrackerSmoothing: 2
   crouching: 0
   lowCrouching: 0
   cameraStandHeight: 0.7

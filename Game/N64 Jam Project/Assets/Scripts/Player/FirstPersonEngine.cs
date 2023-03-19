@@ -65,6 +65,11 @@ public class FirstPersonEngine : MonoBehaviour
     public MovementState State;
 
     public float moveSpeed;
+    private float desiredMoveSpeed;
+    private float lastDesiredMoveSpeed;
+
+    private float momentumTrackerVolocity;
+    public float momentumTrackerSmoothing;
 
     //---------------------------------------------------------------------
     //CrouchManager Variables
@@ -243,40 +248,59 @@ public class FirstPersonEngine : MonoBehaviour
         if (isWallRunning)
         {
             State = MovementState.wallSprinting;
-            moveSpeed = wallSprintSpeed;
+            desiredMoveSpeed = wallSprintSpeed;
         }
 
         //When crouching
         else if (crouching)
         {
             State = MovementState.crouching;
-            if (grounded) { moveSpeed = crouchSpeed; }
+            if (grounded) { desiredMoveSpeed = crouchSpeed; }
         }
 
         else if (lowCrouching)
         {
             State = MovementState.crouching;
-            if (grounded) { moveSpeed = lowCrouchSpeed; }
+            if (grounded) { desiredMoveSpeed = lowCrouchSpeed; }
         }
 
         //When sprinting
         else if (grounded && Input.GetKey(SprintKey))
         {
             State = MovementState.sprinting;
-            moveSpeed = sprintSpeed;
+            desiredMoveSpeed = sprintSpeed;
         }
 
         //When walking
         else if (grounded)
         {
             State = MovementState.walking;
-            moveSpeed = walkSpeed;
+            desiredMoveSpeed = walkSpeed;
         }
 
         //When in the air
         else
         {
             State = MovementState.air;
+        }
+
+        MomentumTracker();
+    }
+
+    //Makes it so you mantain your momentum
+    private void MomentumTracker()
+    {
+        lastDesiredMoveSpeed = moveSpeed;
+
+        float difference = lastDesiredMoveSpeed - desiredMoveSpeed;
+
+        if (difference > 1)
+        {
+            moveSpeed = Mathf.SmoothDamp(lastDesiredMoveSpeed, desiredMoveSpeed, ref momentumTrackerVolocity, momentumTrackerSmoothing);
+        }
+        else
+        {
+            moveSpeed = desiredMoveSpeed;
         }
     }
 
