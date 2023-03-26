@@ -12,4 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 331d82680c3c37e4485fb5bb244ab885, type: 3}
   m_Name: Concrete
   m_EditorClassIdentifier: 
-  footsteps: []
+  WalkFootsteps: []
+  RunFootsteps: []
+  SneakFootsteps: []
+  Sliding: {fileID: 0}
+  JumpStart: []
+  JumpLanding: []

@@ -145,8 +145,21 @@ public class FirstPersonEngine : MonoBehaviour
     //SoundManager Variables
     //---------------------------------------------------------------------
 
+    [Range(0.1f, 0.7f)]
+    public float VolumeMultiplier = 0.1f;
+    [Range(0.1f, 0.7f)]
+    public float PitchMultiplier = 0.1f;
+
+    public AudioClip[] StartSliding;
+
     private AudioSource FootstepAudioSource = default;
-    private List<AudioClip> FootstepSounds = new List<AudioClip>();
+
+    private List<AudioClip> WalkFootstepSounds = new List<AudioClip>();
+    private List<AudioClip> RunFootstepSounds = new List<AudioClip>();
+    private List<AudioClip> SneakFootstepSounds = new List<AudioClip>();
+    private AudioClip Sliding;
+    private List<AudioClip> JumpStartingSound = new List<AudioClip>();
+    private List<AudioClip> JumpLandingSound = new List<AudioClip>();
     private FootstepSwapper Swapper;
 
     //---------------------------------------------------------------------
@@ -235,8 +248,22 @@ public class FirstPersonEngine : MonoBehaviour
         if (time < 0)
         {
             HandleFootSteps();
-            time = walkFStimer;
+            if (State == MovementState.walking)
+            {
+                time = walkFStimer;
+            }
+            else if (State == MovementState.sprinting || State == MovementState.wallSprinting)
+            {
+                time = runFStimer;
+            }
+            else if (State == MovementState.crouching)
+            {
+                time = crouchFStimer;
+            }
+            
         }
+
+        //Debug.Log(State.ToString());
 
     }
 
@@ -656,11 +683,37 @@ public class FirstPersonEngine : MonoBehaviour
 
     public void SwapFootsteps(FootstepCollection collection)
     {
-        FootstepSounds.Clear();
+        WalkFootstepSounds.Clear();
+        RunFootstepSounds.Clear();
+        SneakFootstepSounds.Clear();
+        JumpStartingSound.Clear();
+        JumpLandingSound.Clear();
 
-        for (int i = 0; i < collection.footsteps.Count; i++)
+        Sliding = collection.Sliding;
+
+        for (int i = 0; i < collection.WalkFootsteps.Count; i++)
         {
-            FootstepSounds.Add(collection.footsteps[i]);
+            WalkFootstepSounds.Add(collection.WalkFootsteps[i]);
+        }
+
+        for (int i = 0; i < collection.RunFootsteps.Count; i++)
+        {
+            RunFootstepSounds.Add(collection.RunFootsteps[i]);
+        }
+
+        for (int i = 0; i < collection.SneakFootsteps.Count; i++)
+        {
+            SneakFootstepSounds.Add(collection.SneakFootsteps[i]);
+        }
+
+        for (int i = 0; i < collection.JumpStart.Count; i++)
+        {
+            JumpStartingSound.Add(collection.JumpStart[i]);
+        }
+
+        for (int i = 0; i < collection.JumpLanding.Count; i++)
+        {
+            JumpLandingSound.Add(collection.JumpLanding[i]);
         }
     }
 
@@ -671,12 +724,42 @@ public class FirstPersonEngine : MonoBehaviour
         if (grounded != true) return;
         if (rb.velocity == Vector3.zero) return;
 
-        int n = Random.Range(1, FootstepSounds.Count);
-        FootstepAudioSource.clip = FootstepSounds[n];
-        FootstepAudioSource.PlayOneShot(FootstepAudioSource.clip);
-        //Reset used sound not to get again
-        FootstepSounds[n] = FootstepSounds[0];
-        FootstepSounds[0] = FootstepAudioSource.clip;
+        if (State == MovementState.walking)
+        {
+            int n = Random.Range(1, WalkFootstepSounds.Count);
+            FootstepAudioSource.clip = WalkFootstepSounds[n];
+            FootstepAudioSource.volume = Random.Range(1.0f - VolumeMultiplier, 1.0f);
+            FootstepAudioSource.pitch = Random.Range(1.0f - PitchMultiplier, 1.0f);
+            FootstepAudioSource.PlayOneShot(FootstepAudioSource.clip);
+            //Reset used sound not to get again
+            WalkFootstepSounds[n] = WalkFootstepSounds[0];
+            WalkFootstepSounds[0] = FootstepAudioSource.clip;
+            Debug.Log("WalkingSuccess");
+        }
+        else if(State == MovementState.sprinting || State == MovementState.wallSprinting)
+        {
+            int n = Random.Range(1, RunFootstepSounds.Count);
+            FootstepAudioSource.clip = RunFootstepSounds[n];
+            FootstepAudioSource.volume = Random.Range(1.0f - VolumeMultiplier, 1.0f);
+            FootstepAudioSource.pitch = Random.Range(1.0f - PitchMultiplier, 1.0f);
+            FootstepAudioSource.PlayOneShot(FootstepAudioSource.clip);
+            //Reset used sound not to get again
+            RunFootstepSounds[n] = RunFootstepSounds[0];
+            RunFootstepSounds[0] = FootstepAudioSource.clip;
+            Debug.Log("RunningSuccess");
+        }
+        else if (State == MovementState.crouching)
+        {
+            int n = Random.Range(1, SneakFootstepSounds.Count);
+            FootstepAudioSource.clip = SneakFootstepSounds[n];
+            FootstepAudioSource.volume = Random.Range(1.0f - VolumeMultiplier, 1.0f);
+            FootstepAudioSource.pitch = Random.Range(1.0f - PitchMultiplier, 1.0f);
+            FootstepAudioSource.PlayOneShot(FootstepAudioSource.clip);
+            //Reset used sound not to get again
+            SneakFootstepSounds[n] = SneakFootstepSounds[0];
+            SneakFootstepSounds[0] = FootstepAudioSource.clip;
+            Debug.Log("SneakingSuccess");
+        }
 
     }
 

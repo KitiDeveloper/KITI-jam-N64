@@ -129,7 +129,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh28236
+  m_Name: pb_Mesh28260
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3364,7 +3364,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh28036
+  m_Name: pb_Mesh28052
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3905,7 +3905,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh27948
+  m_Name: pb_Mesh27964
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -46638,7 +46638,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh28280
+  m_Name: pb_Mesh28306
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -46802,7 +46802,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh28068
+  m_Name: pb_Mesh28084
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -51876,6 +51876,7 @@ GameObject:
   - component: {fileID: 1673402505}
   - component: {fileID: 1673402504}
   - component: {fileID: 1673402503}
+  - component: {fileID: 1673402509}
   m_Layer: 3
   m_Name: TestObject#001
   m_TagString: Untagged
@@ -56019,6 +56020,19 @@ Transform:
   m_Father: {fileID: 2009335568}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1673402509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673402502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7413cb0f0ae6b584a922586241820a2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  footstepCollection: {fileID: 11400000, guid: 5a1044606ac4e5740aab1b44311a12c8, type: 2}
 --- !u!43 &1701910800
 Mesh:
   m_ObjectHideFlags: 0
@@ -56311,9 +56325,18 @@ MonoBehaviour:
   minJumpHeight: 1
   isWallRunning: 0
   readyToJump: 1
-  walkFStimer: 0.5
+  VolumeMultiplier: 0.1
+  PitchMultiplier: 0.1
+  StartSliding:
+  - {fileID: 8300000, guid: 6f84b37cbee7d0a429713b8f1656c988, type: 3}
+  - {fileID: 8300000, guid: 09cab758a8d32b04c912a424245e2d1b, type: 3}
+  - {fileID: 8300000, guid: 337ef979bc5aae94b84f5305b2268df2, type: 3}
+  - {fileID: 8300000, guid: 6f01c95123d6c6549be11137f830891e, type: 3}
+  - {fileID: 8300000, guid: 4a0209b6ba2b4f04db1ebfc8b9ee7cd1, type: 3}
+  - {fileID: 8300000, guid: 654aa9391bde77f4fb287258cb74b4a9, type: 3}
+  walkFStimer: 0.74
   runFStimer: 0.5
-  crouchFStimer: 2
+  crouchFStimer: 1.6
   slideFStimer: 1.5
 --- !u!114 &1802151062
 MonoBehaviour:

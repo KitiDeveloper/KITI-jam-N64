@@ -12,9 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 331d82680c3c37e4485fb5bb244ab885, type: 3}
   m_Name: Metal
   m_EditorClassIdentifier: 
-  footsteps:
+  WalkFootsteps:
   - {fileID: 8300000, guid: 6787737cc44418d45b5709f0bed45a82, type: 3}
   - {fileID: 8300000, guid: 87d6f540714b4334db32b42aa7f202da, type: 3}
   - {fileID: 8300000, guid: ab79fd889cba63945a3f166ba97350ac, type: 3}
   - {fileID: 8300000, guid: 5af208769b55ad94082557203a35b1f5, type: 3}
   - {fileID: 8300000, guid: e1d3321f8bc71bf429dbbce784ae8062, type: 3}
+  RunFootsteps:
+  - {fileID: 8300000, guid: 4d19544971fee8a4cae741c39d87fbe2, type: 3}
+  - {fileID: 8300000, guid: b7ca14f007ff51f4e8410ea1f3b93189, type: 3}
+  - {fileID: 8300000, guid: 7f92ff797c2741649bbb47a442011be1, type: 3}
+  - {fileID: 8300000, guid: 735d9f284429e9149954a8d50dad9f13, type: 3}
+  - {fileID: 8300000, guid: bccb709bf3933ba4d88978126960a637, type: 3}
+  - {fileID: 8300000, guid: ad60df0ee725b6d4a80edd2aafa2ec50, type: 3}
+  - {fileID: 8300000, guid: 75ad40f2134f3af41b77419753678e46, type: 3}
+  - {fileID: 8300000, guid: 76e531d4f19468f4b904f1d5707baabc, type: 3}
+  - {fileID: 8300000, guid: 5854e75267018fe4887c4f25d9e93c9f, type: 3}
+  - {fileID: 8300000, guid: 12355e12f963bc644bf2f24b90992e7c, type: 3}
+  - {fileID: 8300000, guid: de23f41b5c948d64db5502a381b74c25, type: 3}
+  SneakFootsteps:
+  - {fileID: 8300000, guid: 5c26a7bab02507548bc54d28b1110d11, type: 3}
+  - {fileID: 8300000, guid: 322140aaa1746d84b8b3937df64f9786, type: 3}
+  - {fileID: 8300000, guid: 122f00137861dba4a950e091b1f09bc1, type: 3}
+  - {fileID: 8300000, guid: aea5d56be79c74d4ebf78618a8ecdcad, type: 3}
+  - {fileID: 8300000, guid: d0ced823091b3294b945a23f89f10d72, type: 3}
+  Sliding: {fileID: 8300000, guid: 240270db655ec304ea60116b4fe750f1, type: 3}
+  JumpStart: []
+  JumpLanding: []

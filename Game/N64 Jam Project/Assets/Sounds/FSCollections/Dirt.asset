@@ -12,4 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 331d82680c3c37e4485fb5bb244ab885, type: 3}
   m_Name: Dirt
   m_EditorClassIdentifier: 
-  footsteps: []
+  WalkFootsteps:
+  - {fileID: 8300000, guid: a01a22360deb50d409a4d7517fea5adf, type: 3}
+  - {fileID: 8300000, guid: 081f06e60dbae134c90d6d40a0146e3e, type: 3}
+  - {fileID: 8300000, guid: 98820cfc4aef1db4098899f0288dc0b9, type: 3}
+  - {fileID: 8300000, guid: 10a063bbde83dd14896958cb9a684283, type: 3}
+  - {fileID: 8300000, guid: f16725152f843fb4cb3bb47c50ae6b93, type: 3}
+  RunFootsteps:
+  - {fileID: 8300000, guid: 4460217f7fa1cb84984aa33f1bb0aa72, type: 3}
+  - {fileID: 8300000, guid: 56e9c029d28e395438645b21a92b87dd, type: 3}
+  - {fileID: 8300000, guid: 2dded0f217ff0e34ba5ce6c24d3cb959, type: 3}
+  - {fileID: 8300000, guid: 80438f1ffe583b147907e7df948afcee, type: 3}
+  - {fileID: 8300000, guid: 25471361cadf70748a237ce58e0f7f34, type: 3}
+  SneakFootsteps:
+  - {fileID: 8300000, guid: d0dfc3312728e8a479ea694af47cf7c7, type: 3}
+  - {fileID: 8300000, guid: 1187b58e7c34b0d47a2c73fc6077722c, type: 3}
+  - {fileID: 8300000, guid: f6827ac3164b21747b9e44c8c58c7014, type: 3}
+  - {fileID: 8300000, guid: 5478930770a7ca642af2c73d4fa07a93, type: 3}
+  - {fileID: 8300000, guid: db85c97fbb3cdb5408a53f817d4d48c4, type: 3}
+  Sliding: {fileID: 8300000, guid: 2c2500a55f2fca7488d12ca8ae97bbb1, type: 3}
+  JumpStart: []
+  JumpLanding: []
