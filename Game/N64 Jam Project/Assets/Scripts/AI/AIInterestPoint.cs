@@ -10,9 +10,9 @@ public class AIInterestPoint : MonoBehaviour
 
     int _currentInterestCount = 0;
 
-    public Vector3 NextInterestPoint()
+    public GameObject NextInterestPoint()
     {
-        return _interestPoints[_currentInterestCount].transform.position;
+        return _interestPoints[_currentInterestCount];
     }
 
 

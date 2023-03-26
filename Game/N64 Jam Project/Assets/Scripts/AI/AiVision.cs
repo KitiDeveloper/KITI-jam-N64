@@ -1,28 +1,18 @@
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 
 
-enum VisionState
-{
-    PlayerUnseen,
-    Chase,
-    LKP,
-    Attack,
-}
+
 public class AiVision : MonoBehaviour
 {
 
     //Object 
     private GameObject _player;
     [SerializeField] private GameObject AIMainGameObject;
-    [SerializeField] private AiMovement AiMovement;
-    [SerializeField] private AIInterestPoint AIInterestPoint;
-    [SerializeField] private AiWeaponHolder AIWeaponHolder;
-    [SerializeField] private Renderer AIRenderer;
+    [SerializeField] private AiBrain AiBrain;
 
-    //State
-    private VisionState _visionState;
-    private Vector3 _lkpPosition = Vector3.zero;
+    
     
     //Settings
     [SerializeField] private float FOVDistance;
@@ -35,93 +25,51 @@ public class AiVision : MonoBehaviour
         _player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        UpdateState();
-        UpdateColor();
-    }
 
 
-    private bool PlayerInLOS()
+    public bool PlayerInLOS()
     {
         if(Vector3.Distance(_player.transform.position, AIMainGameObject.transform.position) < FOVDistance)
         {
             Vector3 directionToPlayer = _player.transform.position - AIMainGameObject.transform.position;
 
-            if(Vector3.Angle(directionToPlayer, AIMainGameObject.transform.forward) < FOVAngle/2) {
-                RaycastHit hit;
-                if (Physics.Raycast(AIMainGameObject.transform.position, _player.transform.position - AIMainGameObject.transform.position, out hit, FOVDistance))
+            if (Vector3.Angle(directionToPlayer, AIMainGameObject.transform.forward) < FOVAngle / 2 || AiBrain.m_VisionState == VisionState.Attack || AiBrain.m_VisionState == VisionState.Chase || AiBrain.m_VisionState == VisionState.LKP) {
+                RaycastHit[] hits1 = Physics.RaycastAll(AIMainGameObject.transform.position, _player.transform.position - AIMainGameObject.transform.position, FOVDistance);
+                RaycastHit[] hits2 = Physics.RaycastAll(AIMainGameObject.transform.position, _player.transform.Find("UpVisible").position - AIMainGameObject.transform.position, FOVDistance);
+                RaycastHit[] hits3 = Physics.RaycastAll(AIMainGameObject.transform.position, _player.transform.Find("DownVisible").position - AIMainGameObject.transform.position, FOVDistance);
+                if (CheckHit(hits1) || CheckHit(hits2) || CheckHit(hits3))
                 {
-                    if(hit.transform && hit.transform.gameObject == _player)
-                    {
-                        return true;
-                    }
+                    return true;
                 }
             }
         }
         return false;
     }
 
-
-    private void UpdateState()
+    private bool CheckHit(RaycastHit[] hits)
     {
-        if (PlayerInLOS())
+        System.Array.Sort(hits,(a, b) => (a.distance.CompareTo(b.distance)));
+        for (int i = 0; i < hits.Length; i++)
         {
-            if (AIWeaponHolder.HasRange())
+            if (hits[i].transform.CompareTag("Player"))
             {
-                AIWeaponHolder.Shoot();
-                _visionState = VisionState.Attack;
-                AiMovement.UpdateMovementTarget(AIMainGameObject.transform.position);
+                return true;
             }
-            else
+            if (!hits[i].transform.CompareTag("Bullet") && !hits[i].transform.CompareTag("AI"))
             {
-                _visionState = VisionState.Chase;
-                AiMovement.UpdateMovementTarget(_player.transform.position);
-            }
-            
-        }
-        else
-        {
-            if (_visionState == VisionState.Chase || _visionState == VisionState.Attack)
-            {
-                _visionState = VisionState.LKP;
-                _lkpPosition = _player.transform.position;
-                AiMovement.UpdateMovementTarget(_lkpPosition);
-            }
-            else if(_visionState == VisionState.PlayerUnseen)
-            {
-                AiMovement.UpdateMovementTarget(AIInterestPoint.NextInterestPoint());
+                return false;
             }
         }
+        return false;   
     }
 
-
-    public void TargetReached()
+    public void LookAtTarget(GameObject target)
     {
-        if(_visionState == VisionState.PlayerUnseen)
-        {
-            AIInterestPoint.TargetReached();
-        }else if(_visionState == VisionState.LKP)
-        {
-            _visionState = VisionState.PlayerUnseen;
-        }
+        transform.parent.LookAt(target.transform);
     }
 
-    private void UpdateColor()
+    public void LookAtTarget(Vector3 position)
     {
-        if(_visionState == VisionState.PlayerUnseen)
-        {
-            AIRenderer.material.color = Color.white;
-        }else if(_visionState == VisionState.Chase)
-        {
-            AIRenderer.material.color = Color.yellow;
-        }else if(_visionState == VisionState.Attack)
-        {
-            AIRenderer.material.color = Color.red;
-        }else if(_visionState == VisionState.LKP)
-        {
-            AIRenderer.material.color = Color.blue;
-        }
+        transform.parent.LookAt(position);
     }
 }

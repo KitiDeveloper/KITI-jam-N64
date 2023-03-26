@@ -13,6 +13,7 @@ public abstract class Weapon : MonoBehaviour
     public float _timeBeforeNextShoot;
     public bool _reloading;
     public float _attackDistance;
+    public float _attackCancelDistance;
     public  void Shoot(GameObject target)
     {
         if (CanShoot())
@@ -56,15 +57,30 @@ public abstract class Weapon : MonoBehaviour
         }
     }
 
-    public bool HasRange(GameObject target)
+    public bool HasRange(GameObject target, VisionState visionState)
     {
-        if(Vector3.Distance(target.transform.position, this.transform.position) < _attackDistance)
+        if(visionState == VisionState.Attack)
         {
-            return true;
+            if (Vector3.Distance(target.transform.position, this.transform.position) < _attackCancelDistance)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         else
         {
-            return false;
+            if (Vector3.Distance(target.transform.position, this.transform.position) < _attackDistance)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
+        
     }
 }

@@ -38,8 +38,8 @@ public class AiWeaponHolder : MonoBehaviour
         
     }
 
-    public bool HasRange()
+    public bool HasRange(VisionState visionState)
     {
-        return currentWeapon.HasRange(_player);
+        return currentWeapon.HasRange(_player, visionState);
     }
 }

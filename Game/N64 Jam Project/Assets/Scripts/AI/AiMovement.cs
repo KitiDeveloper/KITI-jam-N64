@@ -8,6 +8,7 @@ public class AiMovement : MonoBehaviour
 
     [SerializeField] private NavMeshAgent _agent;
     [SerializeField] private AiVision _vision;
+    [SerializeField] private AiBrain _brain;
     private GameObject player;
     // Start is called before the first frame update
     void Start()
@@ -20,15 +21,18 @@ public class AiMovement : MonoBehaviour
     {
         if(_agent.remainingDistance < 0.5)
         {
-            _vision.TargetReached();
+            _brain.TargetReached();
         }
     }
 
-
-
-
     public void UpdateMovementTarget(Vector3 target)
     {
+        _agent.isStopped = false;
         _agent.SetDestination(target);
+    }
+
+    public void UpdateMovementTarget()
+    {
+        _agent.isStopped = true;
     }
 }
