@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using static PlayerCrouchManager;
 using static PlayerMovementManager;
+using Random = UnityEngine.Random;
 
 public class FirstPersonEngine : MonoBehaviour
 {
@@ -140,14 +141,37 @@ public class FirstPersonEngine : MonoBehaviour
 
     public bool readyToJump = true;
 
+    //---------------------------------------------------------------------
+    //SoundManager Variables
+    //---------------------------------------------------------------------
+
+    private AudioSource FootstepAudioSource = default;
+    private List<AudioClip> FootstepSounds = new List<AudioClip>();
+    private FootstepSwapper Swapper;
+
+    //---------------------------------------------------------------------
+    //TimerForSounds Variables
+    //---------------------------------------------------------------------
+    [Header("FootstepTimer")]
+    private float time;
+    public float walkFStimer;
+    public float runFStimer;
+    public float crouchFStimer;
+    public float slideFStimer;
+
+
     void Awake()
     {
         cameraHeight = camHolder.transform.localPosition.y;
+        FootstepAudioSource = gameObject.AddComponent<AudioSource>();
+        Swapper = GetComponent<FootstepSwapper>();
     }
 
     private void Start()
     {
         wallRunTimer = maxWallRunTime;
+
+        time = walkFStimer;
 
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
@@ -204,6 +228,16 @@ public class FirstPersonEngine : MonoBehaviour
         }
 
         JumpUpdate();
+
+
+        //FSTimer
+        time -= Time.deltaTime;
+        if (time < 0)
+        {
+            HandleFootSteps();
+            time = walkFStimer;
+        }
+
     }
 
     private void FixedUpdate()
@@ -618,4 +652,32 @@ public class FirstPersonEngine : MonoBehaviour
 
         exitingSlope = false;
     }
+
+
+    public void SwapFootsteps(FootstepCollection collection)
+    {
+        FootstepSounds.Clear();
+
+        for (int i = 0; i < collection.footsteps.Count; i++)
+        {
+            FootstepSounds.Add(collection.footsteps[i]);
+        }
+    }
+
+
+    private void HandleFootSteps()
+    {
+        Swapper.CheckSurface();
+        if (grounded != true) return;
+        if (rb.velocity == Vector3.zero) return;
+
+        int n = Random.Range(1, FootstepSounds.Count);
+        FootstepAudioSource.clip = FootstepSounds[n];
+        FootstepAudioSource.PlayOneShot(FootstepAudioSource.clip);
+        //Reset used sound not to get again
+        FootstepSounds[n] = FootstepSounds[0];
+        FootstepSounds[0] = FootstepAudioSource.clip;
+
+    }
+
 }

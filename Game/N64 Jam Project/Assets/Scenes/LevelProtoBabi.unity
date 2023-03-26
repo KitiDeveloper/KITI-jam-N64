@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3059,17 +3059,64 @@ MonoBehaviour:
   canMove: 1
   canJump: 1
   canCrouch: 1
-  movementManager: {fileID: 108741820}
-  jumpManager: {fileID: 108741819}
-  crouchManager: {fileID: 108741818}
+  orientation: {fileID: 0}
+  playerObj: {fileID: 0}
+  camHolder: {fileID: 0}
+  feetTransform: {fileID: 0}
   inAirSpeed: 0.1
+  lowCrouchSpeed: 1.5
   crouchSpeed: 3.5
   walkSpeed: 4
   sprintSpeed: 8
+  wallSprintSpeed: 12
   groundDrag: 5
   jumpForce: 6
   jumpCooldown: 0.5
   maxSlopeAngle: 50
+  playerHeight: 0
+  jumpKey: 32
+  SprintKey: 304
+  CrouchKey: 99
+  LowCrouchKey: 122
+  thrownWeaponKey: 103
+  SlideKey: 306
+  grounded: 0
+  exitingSlope: 0
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 0
+  State: 0
+  moveSpeed: 0
+  momentumTrackerSmoothing: 0
+  crouching: 0
+  lowCrouching: 0
+  cameraStandHeight: 0
+  cameraCrouchHeight: 0
+  cameraLowCrouchHeight: 0
+  capsuleStandHeight: 0
+  capsuleCrouchHeight: 0
+  capsuleLowCrouchHeight: 0
+  standStanceCenter: {x: 0, y: 0, z: 0}
+  crouchStanceCenter: {x: 0, y: 0, z: 0}
+  lowCrouchStanceCenter: {x: 0, y: 0, z: 0}
+  playerStanceSmoothing: 0
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  playerStance: 0
+  maxSlideTime: 0.7
+  slideForce: 200
+  sliding: 0
+  whatIsWall:
+    serializedVersion: 2
+    m_Bits: 0
+  wallRunForce: 0
+  maxWallRunTime: 0
+  wallRunTimer: 0
+  wallCheckDistence: 0
+  minJumpHeight: 0
+  isWallRunning: 0
+  readyToJump: 1
 --- !u!114 &108741822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46672,7 +46719,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh29560
+  m_Name: pb_Mesh28314
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
