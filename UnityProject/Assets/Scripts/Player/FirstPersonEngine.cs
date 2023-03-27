@@ -548,6 +548,24 @@ public class FirstPersonEngine : MonoBehaviour
         sliding = true;
 
         slideTimer = maxSlideTime;
+
+        int n = Random.Range(1, StartSliding.Length);
+
+        FootstepAudioSource.clip = StartSliding[n];
+        FootstepAudioSource.volume = Random.Range(1.0f - VolumeMultiplier, 1.0f);
+        FootstepAudioSource.pitch = Random.Range(1.0f - PitchMultiplier, 1.0f);
+
+        FootstepAudioSource.PlayOneShot(FootstepAudioSource.clip);
+
+
+        Swapper.CheckSurface();
+
+        FootstepAudioSource.clip = Sliding;
+        FootstepAudioSource.volume = Random.Range(1.0f - VolumeMultiplier, 1.0f);
+        FootstepAudioSource.pitch = Random.Range(1.0f - PitchMultiplier, 1.0f);
+
+        FootstepAudioSource.PlayOneShot(FootstepAudioSource.clip);
+
     }
 
     private void SlidingMovement()
@@ -574,6 +592,8 @@ public class FirstPersonEngine : MonoBehaviour
         {
             StopSlide();
         }
+
+        
     }
 
     private void StopSlide()
@@ -583,6 +603,8 @@ public class FirstPersonEngine : MonoBehaviour
         sliding = false;
 
         playerStance = PlayerStance.Stand;
+
+        FootstepAudioSource.Stop();
     }
 
     //---------------------------------------------------------------------
@@ -723,6 +745,8 @@ public class FirstPersonEngine : MonoBehaviour
         Swapper.CheckSurface();
         if (grounded != true) return;
         if (rb.velocity == Vector3.zero) return;
+        if (sliding == true) return;
+        
 
         if (State == MovementState.walking)
         {
