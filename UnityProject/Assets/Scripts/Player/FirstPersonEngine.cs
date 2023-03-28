@@ -260,10 +260,8 @@ public class FirstPersonEngine : MonoBehaviour
             {
                 time = crouchFStimer;
             }
-            
-        }
 
-        //Debug.Log(State.ToString());
+        }
 
     }
 
@@ -744,7 +742,7 @@ public class FirstPersonEngine : MonoBehaviour
     {
         Swapper.CheckSurface();
         if (grounded != true) return;
-        if (rb.velocity == Vector3.zero) return;
+        if (Math.Abs(rb.velocity.x + rb.velocity.z) < 1) return;
         if (sliding == true) return;
         
 
