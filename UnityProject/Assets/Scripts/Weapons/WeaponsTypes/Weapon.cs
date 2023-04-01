@@ -57,9 +57,9 @@ public abstract class Weapon : MonoBehaviour
         }
     }
 
-    public bool HasRange(GameObject target, VisionState visionState)
+    public bool HasRange(GameObject target, ActionState visionState)
     {
-        if(visionState == VisionState.Attack)
+        if(visionState == ActionState.Attack)
         {
             if (Vector3.Distance(target.transform.position, this.transform.position) < _attackCancelDistance)
             {

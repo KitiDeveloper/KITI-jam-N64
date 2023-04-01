@@ -32,13 +32,13 @@ public class AiWeaponHolder : MonoBehaviour
         currentWeapon = weapon.GetComponent<Weapon>();
     }
 
-    public void Shoot()
+    public void Attack()
     {
         currentWeapon.Shoot(_player);
         
     }
 
-    public bool HasRange(VisionState visionState)
+    public bool HasRange(ActionState visionState)
     {
         return currentWeapon.HasRange(_player, visionState);
     }
