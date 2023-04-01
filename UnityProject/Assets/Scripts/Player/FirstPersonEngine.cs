@@ -741,7 +741,7 @@ public class FirstPersonEngine : MonoBehaviour
     private void HandleFootSteps()
     {
         Swapper.CheckSurface();
-        if (grounded != true) return;
+        if (State == MovementState.air) return;
         if (Math.Abs(rb.velocity.x + rb.velocity.z) < 1) return;
         if (sliding == true) return;
         
