@@ -12,9 +12,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 331d82680c3c37e4485fb5bb244ab885, type: 3}
   m_Name: Concrete
   m_EditorClassIdentifier: 
-  WalkFootsteps: []
-  RunFootsteps: []
-  SneakFootsteps: []
-  Sliding: {fileID: 0}
+  WalkFootsteps:
+  - {fileID: 8300000, guid: 387357ad1e9aea447bc802685793f6f9, type: 3}
+  - {fileID: 8300000, guid: 90a37def165a671469167025eab751b6, type: 3}
+  - {fileID: 8300000, guid: e1e0d0670a6d3f2499736cf34c918539, type: 3}
+  - {fileID: 8300000, guid: 41bb69635b332ac4d8bf9e4cc940f117, type: 3}
+  - {fileID: 8300000, guid: 31e3984a854322048960de8bb33087ad, type: 3}
+  - {fileID: 8300000, guid: d9778013a9864af4eae312b00848dabd, type: 3}
+  - {fileID: 8300000, guid: 74130cd14e6432b4cba0a551534a0281, type: 3}
+  - {fileID: 8300000, guid: 4276042ca19189b459197884c6f19135, type: 3}
+  - {fileID: 8300000, guid: 8f321fe6cfd9fd249b8977b0bafc86a1, type: 3}
+  RunFootsteps:
+  - {fileID: 8300000, guid: 8dfae7378359043418c4117171d62e9e, type: 3}
+  - {fileID: 8300000, guid: 6b29980228bc7734a8ded8e1011f479b, type: 3}
+  - {fileID: 8300000, guid: 4ca6cc21e3e87d24882829a0480c44dd, type: 3}
+  - {fileID: 8300000, guid: 414671fa8349d6747a83dabfa614df06, type: 3}
+  - {fileID: 8300000, guid: 5373a97c16f17e94990fef586a44efe9, type: 3}
+  - {fileID: 8300000, guid: f0b05320b9809da428c518505f42a02c, type: 3}
+  - {fileID: 8300000, guid: 79234da407504d44a84d4154d6e61a14, type: 3}
+  - {fileID: 8300000, guid: 19433b2dd55101c49b0bdb1fa822dd16, type: 3}
+  SneakFootsteps:
+  - {fileID: 8300000, guid: b74f6b5c949cf074982b1b8333746ffe, type: 3}
+  - {fileID: 8300000, guid: 415fceabc3655b34cbc38df878ce6dcd, type: 3}
+  - {fileID: 8300000, guid: f1e959177ce1f894c9182b9490519610, type: 3}
+  - {fileID: 8300000, guid: 82bd5d51e569e234da0f835a038eeef3, type: 3}
+  - {fileID: 8300000, guid: 2699ca94dbebcfe42ac6dc9932908f2d, type: 3}
+  - {fileID: 8300000, guid: 26a0947ebed9d4f41a29ba8c473ebce6, type: 3}
+  Sliding: {fileID: 8300000, guid: 00ea84be260972643911ecce72760601, type: 3}
   JumpStart: []
   JumpLanding: []
