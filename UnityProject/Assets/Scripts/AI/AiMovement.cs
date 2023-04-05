@@ -10,6 +10,7 @@ public class AiMovement : MonoBehaviour
     [SerializeField] private AiVision _vision;
     [SerializeField] private AiBrain _brain;
     private GameObject player;
+    private float _lastPOIOrPartolReach = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +22,8 @@ public class AiMovement : MonoBehaviour
     {
         if(_agent.remainingDistance < 0.5)
         {
-            _brain.TargetReached();
+            _brain.TargetReached(Time.time - _lastPOIOrPartolReach);
+            _lastPOIOrPartolReach = Time.time;
         }
     }
 

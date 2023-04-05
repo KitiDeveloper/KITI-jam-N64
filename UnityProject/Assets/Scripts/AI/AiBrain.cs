@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,7 @@ public class AiBrain : MonoBehaviour
     [SerializeField] private AiMovement AiMovement;
     [SerializeField] private AIInterestPoint AIInterestPoint;
     [SerializeField] private Renderer AIRenderer;
+    [SerializeField] private Patrol AIPatrol;
 
     private Rigidbody _aiRigidbody;
 
@@ -26,11 +28,11 @@ public class AiBrain : MonoBehaviour
     public bool m_SoftVisionOnPlayer;
     //AlertState
     private bool _playerSeen;
-        //AlertAction
-    private bool m_AlerteGiven;
+    //AlertAction
+    private bool m_AlerteGiven = false;
     //LKP
-    private bool _playerWasInFOV;
     private Vector3 _lkpPosition = Vector3.zero;
+    private bool _lkpSet = false;
 
     //Settings
     [SerializeField] private float TimeToWaitOnLkP;
@@ -63,10 +65,9 @@ public class AiBrain : MonoBehaviour
             _playerSeen = true;
             return;
         }
-        if (m_AlertState == AlertState.Engaged && !m_SoftVisionOnPlayer)
+        if (m_AlertState == AlertState.Engaged && !m_SoftVisionOnPlayer && !(m_ActionState == ActionState.LKP || m_ActionState == ActionState.Attack ||m_ActionState == ActionState.Chase))
         {
             m_AlertState = AlertState.Alerted;
-            _playerWasInFOV = false;
             return;
         }
     }
@@ -85,11 +86,6 @@ public class AiBrain : MonoBehaviour
         }
         if (m_AlertState == AlertState.Alerted)
         {
-            if (_playerWasInFOV)
-            {
-                m_ActionState = ActionState.LKP;
-                return;
-            }
             m_ActionState = ActionState.Patrol;
             return;
         }
@@ -100,17 +96,26 @@ public class AiBrain : MonoBehaviour
                 m_ActionState = ActionState.Alert;
                 return;
             }
-            if((!(m_ActionState == ActionState.Attack) && AIWeaponHolder.HasRange(ActionState.Chase)) 
-                ||(m_ActionState == ActionState.Attack && AIWeaponHolder.HasRange(ActionState.Attack)))
+            if(((!(m_ActionState == ActionState.Attack) && AIWeaponHolder.HasRange(ActionState.Chase)) 
+                ||(m_ActionState == ActionState.Attack && AIWeaponHolder.HasRange(ActionState.Attack))) && m_SoftVisionOnPlayer)
             {
                 m_ActionState = ActionState.Attack;
                 return;
             }
-            else
+            else if (m_SoftVisionOnPlayer)
             {
                 m_ActionState = ActionState.Chase;
                 return;
             }
+            else
+            {
+                if (!_lkpSet)
+                {
+                    _lkpPosition = _player.transform.position;
+                }
+                m_ActionState = ActionState.LKP;
+            }
+            
         }
     }
 
@@ -137,18 +142,34 @@ public class AiBrain : MonoBehaviour
             AiMovement.UpdateMovementTarget(_lkpPosition);
             return;
         }
+        if(m_ActionState == ActionState.Alert)
+        {
+            m_AlerteGiven = true;
+        }
+        if(m_ActionState == ActionState.Patrol)
+        {
+            AiMovement.UpdateMovementTarget(AIPatrol.NextInterestPoint().transform.position);
+            return;
+        }
     }
 
-    public void TargetReached()
+    public void TargetReached(float last)
     {
         if (m_ActionState == ActionState.POI)
         {
-            AIInterestPoint.TargetReached();
-
+            if(last > 1)
+            {
+                AIInterestPoint.TargetReached();
+            }
         }
         else if (m_ActionState == ActionState.LKP)
         {
-            m_ActionState = ActionState.Patrol;
+            m_ActionState = ActionState.None;
+        }else if(m_ActionState == ActionState.Patrol)
+        {
+            if(last > 1) {
+                AIPatrol.TargetReached();
+            }
         }
     }
 
@@ -169,6 +190,9 @@ public class AiBrain : MonoBehaviour
         else if (m_ActionState == ActionState.LKP)
         {
             AIRenderer.material.color = Color.blue;
+        }else if(m_ActionState == ActionState.Patrol)
+        {
+            AIRenderer.material.color = Color.grey;
         }
     }
 

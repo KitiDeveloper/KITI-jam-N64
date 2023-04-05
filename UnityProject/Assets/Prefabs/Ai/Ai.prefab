@@ -41,7 +41,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 488465677679520572}
-  - component: {fileID: 488465677679520547}
+  - component: {fileID: 8688211726126681269}
   m_Layer: 0
   m_Name: Movement
   m_TagString: Untagged
@@ -64,7 +64,7 @@ Transform:
   m_Father: {fileID: 488465678310043266}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &488465677679520547
+--- !u!114 &8688211726126681269
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -73,12 +73,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 488465677679520573}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff3c1dd99dc9fe448bef5db21c5188de, type: 3}
+  m_Script: {fileID: 11500000, guid: 890d7b5bf5d625244bc54a25fd1e1df3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _agent: {fileID: 488465678310043264}
-  _vision: {fileID: 488465678030192370}
-  _brain: {fileID: 488465679084378788}
+  _vision: {fileID: 7391996829069513891}
+  _brain: {fileID: 500850890352341044}
 --- !u!1 &488465677720611738
 GameObject:
   m_ObjectHideFlags: 0
@@ -88,7 +88,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 488465677720611737}
-  - component: {fileID: 488465679084378788}
+  - component: {fileID: 500850890352341044}
   m_Layer: 0
   m_Name: Brain
   m_TagString: Untagged
@@ -111,7 +111,7 @@ Transform:
   m_Father: {fileID: 488465678310043266}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &488465679084378788
+--- !u!114 &500850890352341044
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -120,17 +120,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 488465677720611738}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bbaabf3176502d479fa534327c61f0e, type: 3}
+  m_Script: {fileID: 11500000, guid: f2c9f57eff7882445b09d33fefb2105a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _aiVision: {fileID: 488465678030192370}
+  _aiVision: {fileID: 7391996829069513891}
   AIWeaponHolder: {fileID: 488465678534680481}
   AIMainGameObject: {fileID: 488465678104717253}
   AiHead: {fileID: 488465678092512207}
-  AiMovement: {fileID: 488465677679520547}
-  AIInterestPoint: {fileID: 488465678030192369}
+  AiMovement: {fileID: 8688211726126681269}
+  AIInterestPoint: {fileID: 5288734424637324090}
   AIRenderer: {fileID: 488465678310043270}
-  m_VisionState: 1
+  m_ActionState: 0
+  m_AlertState: 0
+  m_DirectVisionOnPlayer: 0
+  m_SoftVisionOnPlayer: 0
+  TimeToWaitOnLkP: 5
+  TimeToWaitOnPOI: 5
+  _isWaiting: 0
+  _currentWaitingTime: 0
 --- !u!1 &488465678030192371
 GameObject:
   m_ObjectHideFlags: 0
@@ -140,8 +147,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 488465678030192368}
-  - component: {fileID: 488465678030192370}
-  - component: {fileID: 488465678030192369}
+  - component: {fileID: 7391996829069513891}
+  - component: {fileID: 5288734424637324090}
   m_Layer: 0
   m_Name: Vision
   m_TagString: Untagged
@@ -164,7 +171,7 @@ Transform:
   m_Father: {fileID: 488465678310043266}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &488465678030192370
+--- !u!114 &7391996829069513891
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -173,14 +180,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 488465678030192371}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10d4daa84e2ad5f46b7559342d41b06a, type: 3}
+  m_Script: {fileID: 11500000, guid: aba06b58a35c4974a93ca85551f5616c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   AIMainGameObject: {fileID: 488465678104717253}
-  AiBrain: {fileID: 488465679084378788}
-  FOVDistance: 30
+  AiBrain: {fileID: 500850890352341044}
+  FOVDistance: 10
   FOVAngle: 180
---- !u!114 &488465678030192369
+--- !u!114 &5288734424637324090
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -189,14 +196,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 488465678030192371}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adab232eafee78a4c9cf6a35a4b083aa, type: 3}
+  m_Script: {fileID: 11500000, guid: 37ca26f2babe60143bf0bc8ac08704bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interestPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  _interestPoints: []
 --- !u!1 &488465678092512207
 GameObject:
   m_ObjectHideFlags: 0

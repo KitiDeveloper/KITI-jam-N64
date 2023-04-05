@@ -15,6 +15,7 @@ public enum ActionState
     Alert,
     Pause,
     LookAround,
+    None,
 }
 
 public enum AlertState
