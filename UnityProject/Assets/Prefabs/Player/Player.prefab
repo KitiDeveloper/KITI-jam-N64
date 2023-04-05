@@ -192,15 +192,27 @@ MonoBehaviour:
   minJumpHeight: 1
   isWallRunning: 0
   readyToJump: 1
-  VolumeMultiplier: 0.1
-  PitchMultiplier: 0.1
-  StartSliding:
+  VolumeMultiplier: 0.2
+  PitchMultiplier: 0.202
+  StartSlidingSound:
   - {fileID: 8300000, guid: 6f84b37cbee7d0a429713b8f1656c988, type: 3}
   - {fileID: 8300000, guid: 09cab758a8d32b04c912a424245e2d1b, type: 3}
   - {fileID: 8300000, guid: 337ef979bc5aae94b84f5305b2268df2, type: 3}
   - {fileID: 8300000, guid: 6f01c95123d6c6549be11137f830891e, type: 3}
   - {fileID: 8300000, guid: 4a0209b6ba2b4f04db1ebfc8b9ee7cd1, type: 3}
   - {fileID: 8300000, guid: 654aa9391bde77f4fb287258cb74b4a9, type: 3}
+  WallrunSprintingSound:
+  - {fileID: 8300000, guid: 7f92ff797c2741649bbb47a442011be1, type: 3}
+  - {fileID: 8300000, guid: 735d9f284429e9149954a8d50dad9f13, type: 3}
+  - {fileID: 8300000, guid: bccb709bf3933ba4d88978126960a637, type: 3}
+  - {fileID: 8300000, guid: ad60df0ee725b6d4a80edd2aafa2ec50, type: 3}
+  - {fileID: 8300000, guid: 75ad40f2134f3af41b77419753678e46, type: 3}
+  - {fileID: 8300000, guid: 76e531d4f19468f4b904f1d5707baabc, type: 3}
+  - {fileID: 8300000, guid: 5854e75267018fe4887c4f25d9e93c9f, type: 3}
+  - {fileID: 8300000, guid: 12355e12f963bc644bf2f24b90992e7c, type: 3}
+  - {fileID: 8300000, guid: de23f41b5c948d64db5502a381b74c25, type: 3}
+  - {fileID: 8300000, guid: 4d19544971fee8a4cae741c39d87fbe2, type: 3}
+  - {fileID: 8300000, guid: b7ca14f007ff51f4e8410ea1f3b93189, type: 3}
   walkFStimer: 0.74
   runFStimer: 0.5
   crouchFStimer: 1.6
