@@ -150,7 +150,8 @@ public class FirstPersonEngine : MonoBehaviour
     [Range(0.1f, 0.7f)]
     public float PitchMultiplier = 0.1f;
 
-    public AudioClip[] StartSliding;
+    public AudioClip[] StartSlidingSound;
+    public AudioClip[] WallrunSprintingSound;
 
     private AudioSource FootstepAudioSource = default;
 
@@ -547,9 +548,9 @@ public class FirstPersonEngine : MonoBehaviour
 
         slideTimer = maxSlideTime;
 
-        int n = Random.Range(1, StartSliding.Length);
+        int n = Random.Range(1, StartSlidingSound.Length);
 
-        FootstepAudioSource.clip = StartSliding[n];
+        FootstepAudioSource.clip = StartSlidingSound[n];
         FootstepAudioSource.volume = Random.Range(1.0f - VolumeMultiplier, 1.0f);
         FootstepAudioSource.pitch = Random.Range(1.0f - PitchMultiplier, 1.0f);
 
@@ -741,7 +742,7 @@ public class FirstPersonEngine : MonoBehaviour
     private void HandleFootSteps()
     {
         Swapper.CheckSurface();
-        if (grounded != true) return;
+        if (State == MovementState.air) return;
         if (Math.Abs(rb.velocity.x + rb.velocity.z) < 1) return;
         if (sliding == true) return;
         
@@ -758,7 +759,7 @@ public class FirstPersonEngine : MonoBehaviour
             WalkFootstepSounds[0] = FootstepAudioSource.clip;
             Debug.Log("WalkingSuccess");
         }
-        else if(State == MovementState.sprinting || State == MovementState.wallSprinting)
+        else if(State == MovementState.sprinting)
         {
             int n = Random.Range(1, RunFootstepSounds.Count);
             FootstepAudioSource.clip = RunFootstepSounds[n];
@@ -781,6 +782,18 @@ public class FirstPersonEngine : MonoBehaviour
             SneakFootstepSounds[n] = SneakFootstepSounds[0];
             SneakFootstepSounds[0] = FootstepAudioSource.clip;
             Debug.Log("SneakingSuccess");
+        }
+        else if (State == MovementState.wallSprinting)
+        {
+            int n = Random.Range(1, WallrunSprintingSound.Length);
+            FootstepAudioSource.clip = WallrunSprintingSound[n];
+            FootstepAudioSource.volume = Random.Range(1.0f - VolumeMultiplier, 1.0f);
+            FootstepAudioSource.pitch = Random.Range(1.0f - PitchMultiplier, 1.0f);
+            FootstepAudioSource.PlayOneShot(FootstepAudioSource.clip);
+            //Reset used sound not to get again
+            WallrunSprintingSound[n] = WallrunSprintingSound[0];
+            WallrunSprintingSound[0] = FootstepAudioSource.clip;
+
         }
 
     }
