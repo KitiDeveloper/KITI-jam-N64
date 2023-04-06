@@ -793,7 +793,7 @@ public class FirstPersonEngine : MonoBehaviour
             //Reset used sound not to get again
             WallrunSprintingSound[n] = WallrunSprintingSound[0];
             WallrunSprintingSound[0] = FootstepAudioSource.clip;
-
+            Debug.Log("WallRunningSuccess");
         }
 
     }
