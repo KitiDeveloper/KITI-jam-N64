@@ -1,10 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using static PlayerCrouchManager;
-using static PlayerMovementManager;
 using Random = UnityEngine.Random;
 
 public class FirstPersonEngine : MonoBehaviour

@@ -19,7 +19,7 @@ public class PickupItem : MonoBehaviour
     private void CreateWeaponForPlayer(Collider other)
     {
         WeaponHolder weaponHolder = other.GetComponentInParent<WeaponHolder>();
-        weaponHolder.EquipWeapon(weaponPrefab);
+        //weaponHolder.EquipWeapon(weaponPrefab);
         Destroy(gameObject, 1f);
     }
 }

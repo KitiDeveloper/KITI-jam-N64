@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem.iOS;
 
 public class AiWeaponHolder : MonoBehaviour
 {
@@ -34,7 +31,7 @@ public class AiWeaponHolder : MonoBehaviour
 
     public void Attack()
     {
-        currentWeapon.Shoot(_player);
+        currentWeapon.Shoot(_player, this.gameObject);
         
     }
 

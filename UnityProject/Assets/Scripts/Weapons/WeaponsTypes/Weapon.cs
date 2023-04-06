@@ -14,14 +14,15 @@ public abstract class Weapon : MonoBehaviour
     public bool _reloading;
     public float _attackDistance;
     public float _attackCancelDistance;
-    public  void Shoot(GameObject target)
+    public  void Shoot(Vector3 direction, GameObject spawnPosition)
     {
         if (CanShoot())
         {
             _timeBeforeNextShoot = 1 / (_attackSpeed);
             GameObject tempBullet = Instantiate(_bullet);
-            tempBullet.transform.position = this.transform.position;
-            tempBullet.transform.Find("BulletMovement").GetComponent<BulletMovement>().Target = target.transform.position;
+            tempBullet.transform.position = spawnPosition.transform.position;
+            
+            tempBullet.transform.Find("BulletMovement").GetComponent<BulletMovement>().direction = direction;
             Destroy(tempBullet, 5f);
             _currentBullets--;
         }
@@ -44,6 +45,11 @@ public abstract class Weapon : MonoBehaviour
                 _timeBeforeNextShoot -= Time.deltaTime;
             }
         }
+    }
+
+    public void Shoot(GameObject target, GameObject spawnPosition)
+    {
+        Shoot(target.transform.position - this.transform.position, spawnPosition);
     }
     public bool CanShoot()
     {
