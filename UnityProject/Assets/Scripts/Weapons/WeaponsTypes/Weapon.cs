@@ -14,6 +14,31 @@ public abstract class Weapon : MonoBehaviour
     public bool _reloading;
     public float _attackDistance;
     public float _attackCancelDistance;
+    public bool _isPlayerHolder;
+
+    public void Update()
+    {
+        if (_isPlayerHolder) {
+            if (_currentBullets <= 0 && !_reloading)
+            {
+                _reloading = true;
+                _reloadTimeLeft = _reloadDuration;
+            }
+            else if (_reloading)
+            {
+                _reloadTimeLeft -= Time.deltaTime;
+                if (_reloadTimeLeft < 0)
+                {
+                    _currentBullets = _magazineSize;
+                    _reloading = false;
+                }
+            }
+            else
+            {
+                _timeBeforeNextShoot -= Time.deltaTime;
+            }
+        }
+    }
     public  void Shoot(Vector3 direction, GameObject spawnPosition)
     {
         if (CanShoot())
@@ -26,7 +51,7 @@ public abstract class Weapon : MonoBehaviour
             Destroy(tempBullet, 5f);
             _currentBullets--;
         }
-        else
+        else if(!_isPlayerHolder)
         {
             if(_currentBullets <= 0 && !_reloading)
             {
@@ -49,7 +74,7 @@ public abstract class Weapon : MonoBehaviour
 
     public void Shoot(GameObject target, GameObject spawnPosition)
     {
-        Shoot(target.transform.position - this.transform.position, spawnPosition);
+        Shoot((target.transform.position - this.transform.position).normalized, spawnPosition);
     }
     public bool CanShoot()
     {

@@ -10,4 +10,6 @@ public class BulletMovement : MonoBehaviour
     {
         transform.parent.GetComponent<Rigidbody>().velocity = direction * _speed;
     }
+
+
 }
