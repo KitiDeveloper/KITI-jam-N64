@@ -14,11 +14,12 @@ public abstract class Weapon : MonoBehaviour
     public bool _reloading;
     public float _attackDistance;
     public float _attackCancelDistance;
-    public bool _isPlayerHolder;
+
+    [SerializeField] private WeaponBrain _brain;
 
     public void Update()
     {
-        if (_isPlayerHolder) {
+        if (_brain.GetOwner() == WeaponBrain.Owner.Player) {
             if (_currentBullets <= 0 && !_reloading)
             {
                 _reloading = true;
@@ -51,7 +52,7 @@ public abstract class Weapon : MonoBehaviour
             Destroy(tempBullet, 5f);
             _currentBullets--;
         }
-        else if(!_isPlayerHolder)
+        else if(_brain.GetOwner() == WeaponBrain.Owner.AI)
         {
             if(_currentBullets <= 0 && !_reloading)
             {
