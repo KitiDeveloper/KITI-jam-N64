@@ -16,7 +16,7 @@ public class AiVision : MonoBehaviour
     
     
     //Settings
-    [SerializeField] private float FOVDistance;
+    [SerializeField] public float FOVDistance;
     [SerializeField] private float FOVAngle;
 
 

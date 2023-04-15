@@ -145,12 +145,17 @@ public class FirstPersonEngine : MonoBehaviour
     public float VolumeMultiplier = 0.1f;
     [Range(0.1f, 0.7f)]
     public float PitchMultiplier = 0.1f;
+    [Range(0.0f, 1.0f)]
+    public float ClothMovVolume = 0.1f;
 
     public AudioClip[] StartSlidingSound;
     public AudioClip[] WallrunSprintingSound;
 
     private AudioSource FootstepAudioSource = default;
+    private AudioSource ClothMovSource = default;
 
+    public AudioClip[] WalkClothMov;
+    public AudioClip[] RunClothMov;
     private List<AudioClip> WalkFootstepSounds = new List<AudioClip>();
     private List<AudioClip> RunFootstepSounds = new List<AudioClip>();
     private List<AudioClip> SneakFootstepSounds = new List<AudioClip>();
@@ -174,14 +179,15 @@ public class FirstPersonEngine : MonoBehaviour
     {
         cameraHeight = camHolder.transform.localPosition.y;
         FootstepAudioSource = gameObject.AddComponent<AudioSource>();
+        ClothMovSource = gameObject.AddComponent<AudioSource>();
         Swapper = GetComponent<FootstepSwapper>();
     }
 
     private void Start()
     {
         wallRunTimer = maxWallRunTime;
-
         time = walkFStimer;
+        ClothMovSource.volume = ClothMovVolume;
 
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
@@ -754,6 +760,14 @@ public class FirstPersonEngine : MonoBehaviour
             WalkFootstepSounds[n] = WalkFootstepSounds[0];
             WalkFootstepSounds[0] = FootstepAudioSource.clip;
             Debug.Log("WalkingSuccess");
+
+            ClothMovSource.clip = WalkClothMov[n];
+            //ClothMovSource.volume = Random.Range(1.0f - VolumeMultiplier, 1.0f);
+            ClothMovSource.pitch = Random.Range(1.0f - PitchMultiplier, 1.0f);
+            ClothMovSource.PlayOneShot(ClothMovSource.clip);
+            //Reset used sound not to get again
+            WalkClothMov[n] = WalkClothMov[0];
+            WalkClothMov[0] = ClothMovSource.clip;
         }
         else if(State == MovementState.sprinting)
         {
@@ -766,6 +780,14 @@ public class FirstPersonEngine : MonoBehaviour
             RunFootstepSounds[n] = RunFootstepSounds[0];
             RunFootstepSounds[0] = FootstepAudioSource.clip;
             Debug.Log("RunningSuccess");
+
+            ClothMovSource.clip = RunClothMov[n];
+            //ClothMovSource.volume = Random.Range(1.0f - VolumeMultiplier, 1.0f);
+            ClothMovSource.pitch = Random.Range(1.0f - PitchMultiplier, 1.0f);
+            ClothMovSource.PlayOneShot(ClothMovSource.clip);
+            //Reset used sound not to get again
+            RunClothMov[n] = RunClothMov[0];
+            RunClothMov[0] = ClothMovSource.clip;
         }
         else if (State == MovementState.crouching)
         {
@@ -790,6 +812,14 @@ public class FirstPersonEngine : MonoBehaviour
             WallrunSprintingSound[n] = WallrunSprintingSound[0];
             WallrunSprintingSound[0] = FootstepAudioSource.clip;
             Debug.Log("WallRunningSuccess");
+
+            ClothMovSource.clip = RunClothMov[n];
+            //ClothMovSource.volume = Random.Range(1.0f - VolumeMultiplier, 1.0f);
+            ClothMovSource.pitch = Random.Range(1.0f - PitchMultiplier, 1.0f);
+            ClothMovSource.PlayOneShot(ClothMovSource.clip);
+            //Reset used sound not to get again
+            RunClothMov[n] = RunClothMov[0];
+            RunClothMov[0] = ClothMovSource.clip;
         }
 
     }

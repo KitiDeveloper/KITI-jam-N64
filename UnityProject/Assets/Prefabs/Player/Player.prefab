@@ -243,6 +243,7 @@ MonoBehaviour:
   readyToJump: 1
   VolumeMultiplier: 0.2
   PitchMultiplier: 0.202
+  ClothMovVolume: 0.046
   StartSlidingSound:
   - {fileID: 8300000, guid: 6f84b37cbee7d0a429713b8f1656c988, type: 3}
   - {fileID: 8300000, guid: 09cab758a8d32b04c912a424245e2d1b, type: 3}
@@ -262,6 +263,31 @@ MonoBehaviour:
   - {fileID: 8300000, guid: de23f41b5c948d64db5502a381b74c25, type: 3}
   - {fileID: 8300000, guid: 4d19544971fee8a4cae741c39d87fbe2, type: 3}
   - {fileID: 8300000, guid: b7ca14f007ff51f4e8410ea1f3b93189, type: 3}
+  WalkClothMov:
+  - {fileID: 8300000, guid: c0f19a61ccaa5a1438d94b22a2283020, type: 3}
+  - {fileID: 8300000, guid: 88c35e5b57a93274882d82c1000fe35e, type: 3}
+  - {fileID: 8300000, guid: bbf4733bbefbc65418379c00c64fbe2e, type: 3}
+  - {fileID: 8300000, guid: 59ed7648dca75aa4596a510aeec2c4da, type: 3}
+  - {fileID: 8300000, guid: 8a574f0a30ad0be4b865e93392a2172e, type: 3}
+  - {fileID: 8300000, guid: da8c5920461da0b42aec0a2acff6b009, type: 3}
+  - {fileID: 8300000, guid: cddd4d720c979ad4abf8b0aebca79586, type: 3}
+  - {fileID: 8300000, guid: 1c8f618c8b225d94597643c54205fc50, type: 3}
+  - {fileID: 8300000, guid: f0607c371ed94924d99ecf42a69a2bb0, type: 3}
+  - {fileID: 8300000, guid: da684988f1f10bd45940c0f27599cf25, type: 3}
+  RunClothMov:
+  - {fileID: 8300000, guid: 1576537bcefaf9d448e543fb0328f99f, type: 3}
+  - {fileID: 8300000, guid: 0644617a4126e5e4c8d32caf5c875322, type: 3}
+  - {fileID: 8300000, guid: f7303effad2cd0246b1e77e5322341aa, type: 3}
+  - {fileID: 8300000, guid: 69e6865a12352394ab9078b12c9b0572, type: 3}
+  - {fileID: 8300000, guid: 5b2b0fa59bc1ef94a929f99457b30699, type: 3}
+  - {fileID: 8300000, guid: eae44edf894ec8f49b8e16dbc882ccb2, type: 3}
+  - {fileID: 8300000, guid: 460e099aa23b05f4cbcdaf1fbc884dd2, type: 3}
+  - {fileID: 8300000, guid: b1b707abcb06892439513955f95e8bd3, type: 3}
+  - {fileID: 8300000, guid: f494e47b82cb9c24d80809f4a62c8b99, type: 3}
+  - {fileID: 8300000, guid: 20597c89efa87bb4b934a32df9a0c558, type: 3}
+  - {fileID: 8300000, guid: 6ddd86a72735af44c99c7082b5973ba2, type: 3}
+  - {fileID: 8300000, guid: eea711dbddecaa94986d30728fd5bd70, type: 3}
+  - {fileID: 8300000, guid: efa23631cb144934da413cf06486fd81, type: 3}
   walkFStimer: 0.74
   runFStimer: 0.5
   crouchFStimer: 1.6
@@ -750,6 +776,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5235462442072231409, guid: 92cfa5a63e067e14fbfe0714d2ef2369,
+        type: 3}
+      propertyPath: _owner
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9095727984361638976, guid: 92cfa5a63e067e14fbfe0714d2ef2369,
+        type: 3}
+      propertyPath: _brain
+      value: 
+      objectReference: {fileID: 4297587542142830250}
+    - target: {fileID: 9095727984361638976, guid: 92cfa5a63e067e14fbfe0714d2ef2369,
+        type: 3}
+      propertyPath: _timeBeforeNextShoot
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 92cfa5a63e067e14fbfe0714d2ef2369, type: 3}
 --- !u!1 &760623800097928504 stripped
@@ -758,6 +799,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 8290001304765074267}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4297587542142830250 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5235462442072231409, guid: 92cfa5a63e067e14fbfe0714d2ef2369,
+    type: 3}
+  m_PrefabInstance: {fileID: 8290001304765074267}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7d2b6287a6e0ca45bc4c950c2124bb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &4993824482014901045 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3909582611578206318, guid: 92cfa5a63e067e14fbfe0714d2ef2369,

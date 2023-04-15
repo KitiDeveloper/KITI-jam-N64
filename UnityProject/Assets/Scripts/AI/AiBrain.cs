@@ -17,6 +17,7 @@ public class AiBrain : MonoBehaviour
     [SerializeField] private AIInterestPoint AIInterestPoint;
     [SerializeField] private Renderer AIRenderer;
     [SerializeField] private Patrol AIPatrol;
+    [SerializeField] private AIHealth AIHealth;
 
     private Rigidbody _aiRigidbody;
 
@@ -129,12 +130,14 @@ public class AiBrain : MonoBehaviour
         if(m_ActionState == ActionState.Chase)
         {
             AiMovement.UpdateMovementTarget(_player.transform.position);
+            _aiVision.LookAtTarget(_player);
             return;
         }
         if(m_ActionState == ActionState.Attack)
         {
             AiMovement.UpdateMovementTarget();
             AIWeaponHolder.Attack();
+            _aiVision.LookAtTarget(_player);
             return;
         }
         if(m_ActionState == ActionState.LKP)
@@ -194,6 +197,17 @@ public class AiBrain : MonoBehaviour
         {
             AIRenderer.material.color = Color.grey;
         }
+    }
+
+    public void TakeDamage(int dmg)
+    {
+        AIHealth.Damage(dmg);
+    }
+
+    public void Die()
+    {
+        AIWeaponHolder.Drop();
+        Destroy(AIMainGameObject);
     }
 
 }

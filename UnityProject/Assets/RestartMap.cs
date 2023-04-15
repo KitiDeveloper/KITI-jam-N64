@@ -17,7 +17,7 @@ public class RestartMap : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("AI"))
         {
-            ;
+            other.transform.Find("Brain").GetComponent<AiBrain>().TakeDamage(1);
         }
     }
 
@@ -33,7 +33,7 @@ public class RestartMap : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("AI"))
         {
-            ;
+            other.transform.Find("Brain").GetComponent<AiBrain>().TakeDamage(1);
         }
     }
 }

@@ -47,7 +47,6 @@ public abstract class Weapon : MonoBehaviour
             _timeBeforeNextShoot = 1 / (_attackSpeed);
             GameObject tempBullet = Instantiate(_bullet);
             tempBullet.transform.position = spawnPosition.transform.position;
-            
             tempBullet.transform.Find("BulletMovement").GetComponent<BulletMovement>().direction = direction;
             Destroy(tempBullet, 5f);
             _currentBullets--;

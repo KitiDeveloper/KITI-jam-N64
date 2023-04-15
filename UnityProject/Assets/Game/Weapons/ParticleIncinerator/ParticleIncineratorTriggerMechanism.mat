@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: ParticleIncineratorTriggerMechanism
-  m_Shader: {fileID: 211, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 4800000, guid: d639b14081ee3497ab61c634d1cc0f1a, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 0
@@ -16,8 +16,7 @@ Material:
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
-  disabledShaderPasses:
-  - GRABPASS
+  disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -101,6 +100,7 @@ Material:
     - _EmissionEnabled: 0
     - _EnvironmentReflections: 1
     - _FlipbookMode: 0
+    - _GeoRes: 500
     - _GlossMapScale: 1
     - _Glossiness: 0.59999996
     - _GlossyReflections: 1
