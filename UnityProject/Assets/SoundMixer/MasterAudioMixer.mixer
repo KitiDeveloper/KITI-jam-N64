@@ -155,7 +155,19 @@ AudioMixerController:
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
   m_UpdateMode: 0
-  m_ExposedParameters: []
+  m_ExposedParameters:
+  - guid: c04003897e0844a49b946ee61e11d613
+    name: ExposedAmbience
+  - guid: 95b99486bc110da4fb8fa2e95fbc8701
+    name: ExposedFoley
+  - guid: d2edf37640cb33e4a94193b71c1c64d8
+    name: ExposedMaster
+  - guid: 679b895c3976b5a4c932fa5c6233f18f
+    name: ExposedMusic
+  - guid: be8fca49a8d692d4d870ccc6a8d28b21
+    name: ExposedSFX
+  - guid: 1f9a29e5616d91d4fbea7dfc0d2c0044
+    name: ExposedVoice
   m_AudioMixerGroupViews:
   - guids:
     - faaf7483d4430e641ac2a34fdb304698
@@ -166,7 +178,7 @@ AudioMixerController:
     - 181c1050b29b208419c61eac1eb7f1ec
     name: View
   m_CurrentViewIndex: 0
-  m_TargetSnapshot: {fileID: -6874834832790074041}
+  m_TargetSnapshot: {fileID: 24500006}
 --- !u!243 &24300002
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
@@ -215,7 +227,7 @@ AudioMixerSnapshotController:
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: add335dd3dde6c643a19ac88e76737ab
   m_FloatValues:
-    d2edf37640cb33e4a94193b71c1c64d8: -0.08374829
+    d2edf37640cb33e4a94193b71c1c64d8: 0
   m_TransitionOverrides: {}
 --- !u!244 &1693642935371993538
 AudioMixerEffectController:
