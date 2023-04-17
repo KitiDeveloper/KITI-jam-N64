@@ -39,6 +39,20 @@ AudioMixerGroupController:
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
+--- !u!244 &-7453104844135070639
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: df061aa6f70064040a8f0065191689e5
+  m_EffectName: Attenuation
+  m_MixLevel: e0728b257dc3876438d49fd9e6671a06
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!245 &-6874834832790074041
 AudioMixerSnapshotController:
   m_ObjectHideFlags: 0
@@ -75,7 +89,8 @@ AudioMixerGroupController:
   m_Name: Foley
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: d19c9f389362b3c4c95c59d3cf93bdec
-  m_Children: []
+  m_Children:
+  - {fileID: 8897994415439805536}
   m_Volume: 95b99486bc110da4fb8fa2e95fbc8701
   m_Pitch: 6c3c5d58b9bc1c24cb48d82bb632805d
   m_Send: 00000000000000000000000000000000
@@ -176,9 +191,10 @@ AudioMixerController:
     - d19c9f389362b3c4c95c59d3cf93bdec
     - 01307c34f10d7d340b8beb1909d3ee1f
     - 181c1050b29b208419c61eac1eb7f1ec
+    - 7ea107d687bb47345aa629d19fe8014b
     name: View
   m_CurrentViewIndex: 0
-  m_TargetSnapshot: {fileID: 24500006}
+  m_TargetSnapshot: {fileID: 3901958127971968216}
 --- !u!243 &24300002
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
@@ -274,10 +290,12 @@ AudioMixerSnapshotController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shooting
+  m_Name: WhileCharIsShooting
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: 488ffe64d7036ec46ae75ebbd239f109
-  m_FloatValues: {}
+  m_FloatValues:
+    a4506215aec1e4c4e876b0c8fb25229a: -10.867776
+    95b99486bc110da4fb8fa2e95fbc8701: -0.08374829
   m_TransitionOverrides: {}
 --- !u!244 &5850527174648557303
 AudioMixerEffectController:
@@ -311,3 +329,22 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
+--- !u!243 &8897994415439805536
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: CharacterFootsteps
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 7ea107d687bb47345aa629d19fe8014b
+  m_Children: []
+  m_Volume: a4506215aec1e4c4e876b0c8fb25229a
+  m_Pitch: 8fe3e671e1047d2478ef66fb3106802f
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: -7453104844135070639}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0

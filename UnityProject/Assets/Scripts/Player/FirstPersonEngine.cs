@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using Random = UnityEngine.Random;
 
 public class FirstPersonEngine : MonoBehaviour
@@ -141,6 +142,12 @@ public class FirstPersonEngine : MonoBehaviour
     //SoundManager Variables
     //---------------------------------------------------------------------
 
+    public AudioMixerGroup CharacterFootsteps;
+
+    public AudioMixerSnapshot InitialSnapshot;
+    public AudioMixerSnapshot WhileShooting;
+
+
     [Range(0.1f, 0.7f)]
     public float VolumeMultiplier = 0.1f;
     [Range(0.1f, 0.7f)]
@@ -150,9 +157,11 @@ public class FirstPersonEngine : MonoBehaviour
 
     public AudioClip[] StartSlidingSound;
     public AudioClip[] WallrunSprintingSound;
+    public AudioClip[] JumpStartSound;
 
     private AudioSource FootstepAudioSource = default;
     private AudioSource ClothMovSource = default;
+    private AudioSource JumpAudioSource = default;
 
     public AudioClip[] WalkClothMov;
     public AudioClip[] RunClothMov;
@@ -160,7 +169,6 @@ public class FirstPersonEngine : MonoBehaviour
     private List<AudioClip> RunFootstepSounds = new List<AudioClip>();
     private List<AudioClip> SneakFootstepSounds = new List<AudioClip>();
     private AudioClip Sliding;
-    private List<AudioClip> JumpStartingSound = new List<AudioClip>();
     private List<AudioClip> JumpLandingSound = new List<AudioClip>();
     private FootstepSwapper Swapper;
 
@@ -180,6 +188,7 @@ public class FirstPersonEngine : MonoBehaviour
         cameraHeight = camHolder.transform.localPosition.y;
         FootstepAudioSource = gameObject.AddComponent<AudioSource>();
         ClothMovSource = gameObject.AddComponent<AudioSource>();
+        JumpAudioSource = gameObject.AddComponent<AudioSource>();
         Swapper = GetComponent<FootstepSwapper>();
     }
 
@@ -188,6 +197,9 @@ public class FirstPersonEngine : MonoBehaviour
         wallRunTimer = maxWallRunTime;
         time = walkFStimer;
         ClothMovSource.volume = ClothMovVolume;
+        FootstepAudioSource.outputAudioMixerGroup = CharacterFootsteps;
+        ClothMovSource.outputAudioMixerGroup = CharacterFootsteps;
+        JumpAudioSource.outputAudioMixerGroup = CharacterFootsteps;
 
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
@@ -229,6 +241,8 @@ public class FirstPersonEngine : MonoBehaviour
                 if (!gun) return;
             }
             gun.Shoot();
+            Debug.Log("SHOOOT!");
+            WhileShooting.TransitionTo(1.0f);
         }
 
         CheckForWall();
@@ -683,6 +697,17 @@ public class FirstPersonEngine : MonoBehaviour
             JumpEvent();
 
             Invoke(nameof(ResetJumpEvent), jumpCooldown);
+
+            //Play back jump start sound
+            int n = Random.Range(1, JumpStartSound.Length);
+            JumpAudioSource.clip = JumpStartSound[n];
+            JumpAudioSource.volume = Random.Range(1.0f - VolumeMultiplier, 1.0f);
+            JumpAudioSource.pitch = Random.Range(1.0f - PitchMultiplier, 1.0f);
+            JumpAudioSource.PlayOneShot(JumpAudioSource.clip);
+            //Reset used sound not to get again
+            JumpStartSound[n] = JumpStartSound[0];
+            JumpStartSound[0] = JumpAudioSource.clip;
+
         }
     }
 
@@ -709,7 +734,6 @@ public class FirstPersonEngine : MonoBehaviour
         WalkFootstepSounds.Clear();
         RunFootstepSounds.Clear();
         SneakFootstepSounds.Clear();
-        JumpStartingSound.Clear();
         JumpLandingSound.Clear();
 
         Sliding = collection.Sliding;
@@ -727,11 +751,6 @@ public class FirstPersonEngine : MonoBehaviour
         for (int i = 0; i < collection.SneakFootsteps.Count; i++)
         {
             SneakFootstepSounds.Add(collection.SneakFootsteps[i]);
-        }
-
-        for (int i = 0; i < collection.JumpStart.Count; i++)
-        {
-            JumpStartingSound.Add(collection.JumpStart[i]);
         }
 
         for (int i = 0; i < collection.JumpLanding.Count; i++)

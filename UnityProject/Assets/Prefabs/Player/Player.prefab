@@ -241,6 +241,11 @@ MonoBehaviour:
   minJumpHeight: 1
   isWallRunning: 0
   readyToJump: 1
+  CharacterFootsteps: {fileID: 8897994415439805536, guid: 16123313f9002a04b8628c9fb6b8f517,
+    type: 2}
+  InitialSnapshot: {fileID: 24500006, guid: 16123313f9002a04b8628c9fb6b8f517, type: 2}
+  WhileShooting: {fileID: 3901958127971968216, guid: 16123313f9002a04b8628c9fb6b8f517,
+    type: 2}
   VolumeMultiplier: 0.2
   PitchMultiplier: 0.202
   ClothMovVolume: 0.046
@@ -263,6 +268,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: de23f41b5c948d64db5502a381b74c25, type: 3}
   - {fileID: 8300000, guid: 4d19544971fee8a4cae741c39d87fbe2, type: 3}
   - {fileID: 8300000, guid: b7ca14f007ff51f4e8410ea1f3b93189, type: 3}
+  JumpStartSound:
+  - {fileID: 8300000, guid: 987c1722c2cf29a4688fc15d289ea3b9, type: 3}
+  - {fileID: 8300000, guid: 2e32ee67db1ed5a4e8e2a3307a151fda, type: 3}
+  - {fileID: 8300000, guid: 132bf7b96a61c3b4a974db2df3c15a69, type: 3}
+  - {fileID: 8300000, guid: 9f20a6e7df156704295f5efc74894ce8, type: 3}
+  - {fileID: 8300000, guid: 337d91604329c084b9a9fbc1b9300aae, type: 3}
+  - {fileID: 8300000, guid: 3f70e891ddeb52c479179d3d23fd0caf, type: 3}
   WalkClothMov:
   - {fileID: 8300000, guid: c0f19a61ccaa5a1438d94b22a2283020, type: 3}
   - {fileID: 8300000, guid: 88c35e5b57a93274882d82c1000fe35e, type: 3}
