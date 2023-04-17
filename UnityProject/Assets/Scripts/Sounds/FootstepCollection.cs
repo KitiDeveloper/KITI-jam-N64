@@ -10,7 +10,6 @@ public class FootstepCollection : ScriptableObject
     public List<AudioClip> RunFootsteps = new List<AudioClip>();
     public List<AudioClip> SneakFootsteps = new List<AudioClip>();
     public AudioClip Sliding;
-    public List<AudioClip> JumpStart = new List<AudioClip>();
     public List<AudioClip> JumpLanding = new List<AudioClip>();
 
 

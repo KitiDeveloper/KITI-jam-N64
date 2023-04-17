@@ -157,9 +157,11 @@ public class FirstPersonEngine : MonoBehaviour
 
     public AudioClip[] StartSlidingSound;
     public AudioClip[] WallrunSprintingSound;
+    public AudioClip[] JumpStartSound;
 
     private AudioSource FootstepAudioSource = default;
     private AudioSource ClothMovSource = default;
+    private AudioSource JumpAudioSource = default;
 
     public AudioClip[] WalkClothMov;
     public AudioClip[] RunClothMov;
@@ -167,7 +169,6 @@ public class FirstPersonEngine : MonoBehaviour
     private List<AudioClip> RunFootstepSounds = new List<AudioClip>();
     private List<AudioClip> SneakFootstepSounds = new List<AudioClip>();
     private AudioClip Sliding;
-    private List<AudioClip> JumpStartingSound = new List<AudioClip>();
     private List<AudioClip> JumpLandingSound = new List<AudioClip>();
     private FootstepSwapper Swapper;
 
@@ -187,6 +188,7 @@ public class FirstPersonEngine : MonoBehaviour
         cameraHeight = camHolder.transform.localPosition.y;
         FootstepAudioSource = gameObject.AddComponent<AudioSource>();
         ClothMovSource = gameObject.AddComponent<AudioSource>();
+        JumpAudioSource = gameObject.AddComponent<AudioSource>();
         Swapper = GetComponent<FootstepSwapper>();
     }
 
@@ -197,6 +199,7 @@ public class FirstPersonEngine : MonoBehaviour
         ClothMovSource.volume = ClothMovVolume;
         FootstepAudioSource.outputAudioMixerGroup = CharacterFootsteps;
         ClothMovSource.outputAudioMixerGroup = CharacterFootsteps;
+        JumpAudioSource.outputAudioMixerGroup = CharacterFootsteps;
 
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
@@ -694,6 +697,17 @@ public class FirstPersonEngine : MonoBehaviour
             JumpEvent();
 
             Invoke(nameof(ResetJumpEvent), jumpCooldown);
+
+            //Play back jump start sound
+            int n = Random.Range(1, JumpStartSound.Length);
+            JumpAudioSource.clip = JumpStartSound[n];
+            JumpAudioSource.volume = Random.Range(1.0f - VolumeMultiplier, 1.0f);
+            JumpAudioSource.pitch = Random.Range(1.0f - PitchMultiplier, 1.0f);
+            JumpAudioSource.PlayOneShot(JumpAudioSource.clip);
+            //Reset used sound not to get again
+            JumpStartSound[n] = JumpStartSound[0];
+            JumpStartSound[0] = JumpAudioSource.clip;
+
         }
     }
 
@@ -720,7 +734,6 @@ public class FirstPersonEngine : MonoBehaviour
         WalkFootstepSounds.Clear();
         RunFootstepSounds.Clear();
         SneakFootstepSounds.Clear();
-        JumpStartingSound.Clear();
         JumpLandingSound.Clear();
 
         Sliding = collection.Sliding;
@@ -738,11 +751,6 @@ public class FirstPersonEngine : MonoBehaviour
         for (int i = 0; i < collection.SneakFootsteps.Count; i++)
         {
             SneakFootstepSounds.Add(collection.SneakFootsteps[i]);
-        }
-
-        for (int i = 0; i < collection.JumpStart.Count; i++)
-        {
-            JumpStartingSound.Add(collection.JumpStart[i]);
         }
 
         for (int i = 0; i < collection.JumpLanding.Count; i++)
