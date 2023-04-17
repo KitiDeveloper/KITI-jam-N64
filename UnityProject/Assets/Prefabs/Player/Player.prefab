@@ -483,6 +483,7 @@ MonoBehaviour:
   sensX: 500
   sensY: 500
   orientation: {fileID: 8027137176253275537}
+  gameMenu: {fileID: 0}
   negXClamp: -80
   posXClamp: 80
 --- !u!1 &8027137175640246670
