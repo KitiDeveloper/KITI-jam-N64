@@ -8,6 +8,7 @@ public class FirstPersonCamManager : MonoBehaviour
     public float sensY;
 
     public Transform orientation;
+    public GameMenu gameMenu;
 
     float xRotation;
     float yRotation;
@@ -23,6 +24,17 @@ public class FirstPersonCamManager : MonoBehaviour
 
     private void Update()
     {
+        if (gameMenu.gameIsPaused)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+
         float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX;
         float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensY;
 

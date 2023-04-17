@@ -8,6 +8,7 @@ public class FPSCamera : MonoBehaviour
     [SerializeField] private float mouseXsensitivity, mouseYsensitivity;
 
     [SerializeField] private Transform playerBody;
+    public GameMenu gameMenu;
 
     private float xAxisClamp;
 
@@ -24,6 +25,15 @@ public class FPSCamera : MonoBehaviour
 
     private void Update()
     {
+        if (gameMenu.gameIsPaused)
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+
         CameraRotation();
     }
 
