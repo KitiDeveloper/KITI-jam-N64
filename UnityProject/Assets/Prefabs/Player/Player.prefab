@@ -241,6 +241,11 @@ MonoBehaviour:
   minJumpHeight: 1
   isWallRunning: 0
   readyToJump: 1
+  CharacterFootsteps: {fileID: 8897994415439805536, guid: 16123313f9002a04b8628c9fb6b8f517,
+    type: 2}
+  InitialSnapshot: {fileID: 24500006, guid: 16123313f9002a04b8628c9fb6b8f517, type: 2}
+  WhileShooting: {fileID: 3901958127971968216, guid: 16123313f9002a04b8628c9fb6b8f517,
+    type: 2}
   VolumeMultiplier: 0.2
   PitchMultiplier: 0.202
   ClothMovVolume: 0.046

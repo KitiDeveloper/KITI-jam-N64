@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using Random = UnityEngine.Random;
 
 public class FirstPersonEngine : MonoBehaviour
@@ -141,6 +142,12 @@ public class FirstPersonEngine : MonoBehaviour
     //SoundManager Variables
     //---------------------------------------------------------------------
 
+    public AudioMixerGroup CharacterFootsteps;
+
+    public AudioMixerSnapshot InitialSnapshot;
+    public AudioMixerSnapshot WhileShooting;
+
+
     [Range(0.1f, 0.7f)]
     public float VolumeMultiplier = 0.1f;
     [Range(0.1f, 0.7f)]
@@ -188,6 +195,8 @@ public class FirstPersonEngine : MonoBehaviour
         wallRunTimer = maxWallRunTime;
         time = walkFStimer;
         ClothMovSource.volume = ClothMovVolume;
+        FootstepAudioSource.outputAudioMixerGroup = CharacterFootsteps;
+        ClothMovSource.outputAudioMixerGroup = CharacterFootsteps;
 
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
@@ -229,6 +238,8 @@ public class FirstPersonEngine : MonoBehaviour
                 if (!gun) return;
             }
             gun.Shoot();
+            Debug.Log("SHOOOT!");
+            WhileShooting.TransitionTo(1.0f);
         }
 
         CheckForWall();
