@@ -280,6 +280,22 @@ public class FirstPersonEngine : MonoBehaviour
 
         }
 
+        if (rb.velocity.y < -4)
+        {
+            if (grounded == true && !JumpAudioSource.isPlaying)
+            {
+                Swapper.CheckSurface();
+
+                int n = Random.Range(1, JumpLandingSound.Count);
+                JumpAudioSource.clip = JumpLandingSound[n];
+                JumpAudioSource.volume = Random.Range(1.0f - VolumeMultiplier, 1.0f);
+                JumpAudioSource.pitch = Random.Range(1.0f - PitchMultiplier, 1.0f);
+                JumpAudioSource.PlayDelayed(0.1f);
+                //Reset used sound not to get again
+                JumpLandingSound[n] = JumpLandingSound[0];
+                JumpLandingSound[0] = JumpAudioSource.clip;
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -714,7 +730,6 @@ public class FirstPersonEngine : MonoBehaviour
     public void JumpEvent()
     {
         exitingSlope = true;
-
 
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 

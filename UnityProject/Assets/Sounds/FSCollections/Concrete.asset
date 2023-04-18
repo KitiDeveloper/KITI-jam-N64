@@ -39,5 +39,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 2699ca94dbebcfe42ac6dc9932908f2d, type: 3}
   - {fileID: 8300000, guid: 26a0947ebed9d4f41a29ba8c473ebce6, type: 3}
   Sliding: {fileID: 8300000, guid: 00ea84be260972643911ecce72760601, type: 3}
-  JumpStart: []
-  JumpLanding: []
+  JumpLanding:
+  - {fileID: 8300000, guid: 09e3c13d1e8c6ea4e90a52312385263a, type: 3}
+  - {fileID: 8300000, guid: a4a8433bcf086334faf93bb37926919a, type: 3}
+  - {fileID: 8300000, guid: 5cfea6bf5b6507a4eb9691b5b62ec21a, type: 3}
+  - {fileID: 8300000, guid: fbaef4cafc0ff4b4586c7d5df567fa11, type: 3}
+  - {fileID: 8300000, guid: 0b232df7b8801d349ad1115ec4d0e033, type: 3}

@@ -16,7 +16,7 @@ public class FootstepSwapper : MonoBehaviour
     {
         RaycastHit hit;
 
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, 3))
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 10))
         {
             if (hit.transform.GetComponent<SurfaceType>() != null)
             {
