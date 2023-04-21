@@ -148,6 +148,8 @@ MonoBehaviour:
   AIRenderer: {fileID: 488465678310043270}
   AIPatrol: {fileID: 372741554}
   AIHealth: {fileID: 948831130}
+  _offset: {fileID: 1312980498316811737}
+  _oldOffsetPosition: {x: 0, y: 0, z: 0}
   m_ActionState: 0
   m_AlertState: 0
   m_DirectVisionOnPlayer: 0
@@ -528,8 +530,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingWeapon: {fileID: 0}
   AIVision: {fileID: 7391996829069513891}
-  _offset: {fileID: 7467987609389965566}
   _weaponCenter: {fileID: 7467987609191548001}
+  _brain: {fileID: 500850890352341044}
 --- !u!1001 &5900348290272352130
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -601,17 +603,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4757760868307143300, guid: 82b8b2b7140e73c4eb29f4971f863fa4, type: 3}
+    - {fileID: 1216879478812559347, guid: 82b8b2b7140e73c4eb29f4971f863fa4, type: 3}
+    - {fileID: 4095149212310613686, guid: 82b8b2b7140e73c4eb29f4971f863fa4, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 82b8b2b7140e73c4eb29f4971f863fa4, type: 3}
---- !u!1 &7467987609191548001 stripped
+--- !u!1 &1312980498316811737 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 3909582611796055011, guid: 82b8b2b7140e73c4eb29f4971f863fa4,
+  m_CorrespondingSourceObject: {fileID: 4889391099203029595, guid: 82b8b2b7140e73c4eb29f4971f863fa4,
     type: 3}
   m_PrefabInstance: {fileID: 5900348290272352130}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &7467987609389965566 stripped
+--- !u!1 &7467987609191548001 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 3909582611331250044, guid: 82b8b2b7140e73c4eb29f4971f863fa4,
+  m_CorrespondingSourceObject: {fileID: 3909582611796055011, guid: 82b8b2b7140e73c4eb29f4971f863fa4,
     type: 3}
   m_PrefabInstance: {fileID: 5900348290272352130}
   m_PrefabAsset: {fileID: 0}

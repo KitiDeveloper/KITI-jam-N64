@@ -6,8 +6,8 @@ public class AiWeaponHolder : MonoBehaviour
     [SerializeField] private AiVision AIVision;
     private Weapon currentWeapon;
     private GameObject _player;
-    [SerializeField] private GameObject _offset;
     [SerializeField] private GameObject _weaponCenter;
+    [SerializeField] private AiBrain _brain;
 
     Vector3 handPosition;
 
@@ -36,8 +36,7 @@ public class AiWeaponHolder : MonoBehaviour
     {
         if (currentWeapon)
         {
-            Debug.Log(_offset.transform.position);
-            currentWeapon.Shoot(_player, _offset);
+            currentWeapon.Shoot(_player, _brain._oldOffsetPosition);
         }
     }
 
@@ -45,7 +44,7 @@ public class AiWeaponHolder : MonoBehaviour
     {
         if(currentWeapon.HasRange(_player, visionState))
         {
-            RaycastHit[] hits1 = Physics.RaycastAll(_offset.transform.position, _player.transform.position - _offset.transform.position, AIVision.FOVDistance);
+            RaycastHit[] hits1 = Physics.RaycastAll(_brain._oldOffsetPosition, _player.transform.position - _brain._oldOffsetPosition, AIVision.FOVDistance);
             return CheckHit(hits1);
         }
         return false;

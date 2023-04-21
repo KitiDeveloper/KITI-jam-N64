@@ -53,7 +53,7 @@ public class WeaponHolder : MonoBehaviour
 
     public void Attack()
     {
-        currentWeapon.Shoot((_offset.transform.position - _weaponCenter.transform.position).normalized, _offset);
+        currentWeapon.Shoot((_offset.transform.position - _weaponCenter.transform.position).normalized, _offset.transform.position);
 
     }
 

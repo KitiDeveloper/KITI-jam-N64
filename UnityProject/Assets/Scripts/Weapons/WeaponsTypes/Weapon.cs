@@ -40,13 +40,12 @@ public abstract class Weapon : MonoBehaviour
             }
         }
     }
-    public  void Shoot(Vector3 direction, GameObject spawnPosition)
+    public  void Shoot(Vector3 direction, Vector3 spawnPosition)
     {
         if (CanShoot())
         {
             _timeBeforeNextShoot = 1 / (_attackSpeed);
-            GameObject tempBullet = Instantiate(_bullet);
-            tempBullet.transform.position = spawnPosition.transform.position;
+            GameObject tempBullet = Instantiate(_bullet, spawnPosition, Quaternion.identity);
             tempBullet.transform.Find("BulletMovement").GetComponent<BulletMovement>().direction = direction;
             Destroy(tempBullet, 5f);
             _currentBullets--;
@@ -74,7 +73,12 @@ public abstract class Weapon : MonoBehaviour
 
     public void Shoot(GameObject target, GameObject spawnPosition)
     {
-        Shoot((target.transform.position - this.transform.position).normalized, spawnPosition);
+        Shoot((target.transform.position - spawnPosition.transform.position).normalized, spawnPosition.transform.position);
+    }
+
+    public void Shoot(GameObject target, Vector3 spawnPosition)
+    {
+        Shoot((target.transform.position - spawnPosition).normalized, spawnPosition);
     }
     public bool CanShoot()
     {

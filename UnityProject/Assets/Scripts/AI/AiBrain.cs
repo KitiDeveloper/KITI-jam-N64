@@ -18,6 +18,8 @@ public class AiBrain : MonoBehaviour
     [SerializeField] private Renderer AIRenderer;
     [SerializeField] private Patrol AIPatrol;
     [SerializeField] private AIHealth AIHealth;
+    [SerializeField] private GameObject _offset;
+    public Vector3 _oldOffsetPosition = Vector3.zero;
 
     private Rigidbody _aiRigidbody;
 
@@ -131,6 +133,8 @@ public class AiBrain : MonoBehaviour
         {
             AiMovement.UpdateMovementTarget(_player.transform.position);
             _aiVision.LookAtTarget(_player);
+            _oldOffsetPosition = _offset.transform.position;
+
             return;
         }
         if(m_ActionState == ActionState.Attack)
@@ -138,6 +142,7 @@ public class AiBrain : MonoBehaviour
             AiMovement.UpdateMovementTarget();
             AIWeaponHolder.Attack();
             _aiVision.LookAtTarget(_player);
+            _oldOffsetPosition = _offset.transform.position;
             return;
         }
         if(m_ActionState == ActionState.LKP)
