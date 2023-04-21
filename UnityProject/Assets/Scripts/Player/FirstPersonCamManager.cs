@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FirstPersonCamManager : MonoBehaviour
 {
@@ -16,10 +17,26 @@ public class FirstPersonCamManager : MonoBehaviour
     public float negXClamp;
     public float posXClamp;
 
+    public Slider sensitivitySlider;
+
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        sensitivitySlider.value = sensY;
+        sensitivitySlider.value = sensX;
+    }
+
+    public void FixedUpdate()
+    {
+        UpdateCameraSensitivity(sensitivitySlider.value);
+    }
+
+    public void UpdateCameraSensitivity(float value)
+    {
+        sensX = value;
+        sensY = value;
     }
 
     private void Update()

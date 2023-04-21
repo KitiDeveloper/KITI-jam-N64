@@ -2,7 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class GameMenu : MonoBehaviour
 {
@@ -13,10 +17,28 @@ public class GameMenu : MonoBehaviour
     public GameObject pauseMenuUI;
     public GameObject gamePlayHUD;
 
+    // Reference to the global volume component
+    public Volume globalVolume;
+
+    // Reference to the bloom component inside the global volume
+    public Bloom bloom;
+
+    // Reference to the slider UI element
+    public UnityEngine.UI.Slider bloomSlider;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        // Get the Bloom component from the global volume
+        globalVolume.profile.TryGet(out bloom);
+
+        // Set the initial value of the slider to the current value of the bloom intensity
+        bloomSlider.value = bloom.intensity.value;
+    }
+
+    private void FixedUpdate()
+    {
+        OnSliderValueChanged();
     }
 
     // Update is called once per frame
@@ -51,5 +73,11 @@ public class GameMenu : MonoBehaviour
     {
         Time.timeScale = 1.0f;
         SceneManager.LoadScene(0);
+    }
+
+    public void OnSliderValueChanged()
+    {
+        // Set the bloom intensity to the value of the slider
+        bloom.intensity.value = bloomSlider.value;
     }
 }
