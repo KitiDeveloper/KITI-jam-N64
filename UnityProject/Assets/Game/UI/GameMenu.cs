@@ -25,6 +25,9 @@ public class GameMenu : MonoBehaviour
 
     // Reference to the slider UI element
     public UnityEngine.UI.Slider bloomSlider;
+    public UnityEngine.UI.Slider brightnessSlider;
+
+    private ColorAdjustments colorAdjustments;
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +37,9 @@ public class GameMenu : MonoBehaviour
 
         // Set the initial value of the slider to the current value of the bloom intensity
         bloomSlider.value = bloom.intensity.value;
+
+        globalVolume.profile.TryGet(out colorAdjustments);
+        brightnessSlider.value = colorAdjustments.postExposure.value;
     }
 
     private void FixedUpdate()
@@ -79,5 +85,10 @@ public class GameMenu : MonoBehaviour
     {
         // Set the bloom intensity to the value of the slider
         bloom.intensity.value = bloomSlider.value;
+    }
+
+    public void UpdateBrightness(float value)
+    {
+        colorAdjustments.postExposure.value = value;
     }
 }
