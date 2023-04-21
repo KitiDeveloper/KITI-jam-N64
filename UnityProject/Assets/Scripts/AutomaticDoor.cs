@@ -23,7 +23,6 @@ public class AutomaticDoor : MonoBehaviour
         if (Vector3.Distance(doorTransform.position, playerTransform.position) < liftDistance && !isLifting)
         {
             StartCoroutine(LiftDoor());
-            isPlayerInside = true;
         }
         else if (Vector3.Distance(doorTransform.position, playerTransform.position) > liftDistance && isLifting && !isPlayerInside)
         {
@@ -48,6 +47,8 @@ public class AutomaticDoor : MonoBehaviour
 
     IEnumerator LowerDoor()
     {
+        isPlayerInside = true;
+
         while (doorTransform.position.y > originalPosition.y)
         {
             doorTransform.Translate(Vector3.down * liftSpeed * Time.deltaTime);
