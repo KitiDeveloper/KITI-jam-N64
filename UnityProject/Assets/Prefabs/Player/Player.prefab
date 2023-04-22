@@ -134,8 +134,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1, z: 0.05317688}
+  m_Center: {x: 0, y: 0, z: 0.47341156}
 --- !u!1 &1904634783
 GameObject:
   m_ObjectHideFlags: 0
@@ -980,51 +980,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5235462442072231409, guid: 92cfa5a63e067e14fbfe0714d2ef2369,
-        type: 3}
-      propertyPath: _owner
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9095727984361638976, guid: 92cfa5a63e067e14fbfe0714d2ef2369,
-        type: 3}
-      propertyPath: _brain
-      value: 
-      objectReference: {fileID: 4297587542142830250}
-    - target: {fileID: 9095727984361638976, guid: 92cfa5a63e067e14fbfe0714d2ef2369,
-        type: 3}
-      propertyPath: _recoilX
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 9095727984361638976, guid: 92cfa5a63e067e14fbfe0714d2ef2369,
-        type: 3}
-      propertyPath: _recoilY
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 9095727984361638976, guid: 92cfa5a63e067e14fbfe0714d2ef2369,
-        type: 3}
-      propertyPath: _snapiness
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 9095727984361638976, guid: 92cfa5a63e067e14fbfe0714d2ef2369,
-        type: 3}
-      propertyPath: _returnSpeed
-      value: 80
-      objectReference: {fileID: 0}
-    - target: {fileID: 9095727984361638976, guid: 92cfa5a63e067e14fbfe0714d2ef2369,
-        type: 3}
-      propertyPath: _magazineSize
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9095727984361638976, guid: 92cfa5a63e067e14fbfe0714d2ef2369,
-        type: 3}
-      propertyPath: _currentBullets
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9095727984361638976, guid: 92cfa5a63e067e14fbfe0714d2ef2369,
-        type: 3}
-      propertyPath: _timeBeforeNextShoot
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 92cfa5a63e067e14fbfe0714d2ef2369, type: 3}
 --- !u!1 &760623800097928504 stripped
@@ -1033,18 +988,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 8290001304765074267}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4297587542142830250 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5235462442072231409, guid: 92cfa5a63e067e14fbfe0714d2ef2369,
-    type: 3}
-  m_PrefabInstance: {fileID: 8290001304765074267}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7d2b6287a6e0ca45bc4c950c2124bb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &4993824482014901045 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3909582611578206318, guid: 92cfa5a63e067e14fbfe0714d2ef2369,

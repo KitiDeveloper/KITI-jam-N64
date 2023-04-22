@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
 
 public abstract class Weapon : MonoBehaviour
 {
@@ -25,6 +26,9 @@ public abstract class Weapon : MonoBehaviour
 
     public Vector3 targetRotation;
     public Vector3 currentRotation;
+
+    //Sounds
+    [SerializeField] private List<AudioSource> _audioSources;
 
     private void Start()
     {
@@ -84,6 +88,11 @@ public abstract class Weapon : MonoBehaviour
             if(_brain.GetOwner() == WeaponBrain.Owner.Player)
             {
                 Recoil();
+            }
+            if(_audioSources.Count > 0)
+            {
+                int random = Random.Range(0, _audioSources.Count);
+                _audioSources[random].Play();   
             }
 
         }
