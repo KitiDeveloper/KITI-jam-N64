@@ -98,7 +98,14 @@ MonoBehaviour:
   _reloading: 0
   _attackDistance: 25
   _attackCancelDistance: 30
+  _recoilX: 0
+  _recoilY: 0
+  _recoilZ: 0
+  _snapiness: 0
+  _returnSpeed: 0
   _brain: {fileID: 1398869514}
+  targetRotation: {x: 0, y: 0, z: 0}
+  currentRotation: {x: 0, y: 0, z: 0}
 --- !u!1 &3909582611578206305
 GameObject:
   m_ObjectHideFlags: 0
@@ -177,7 +184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7d2b6287a6e0ca45bc4c950c2124bb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _owner: 1
+  _owner: 2
   _pickObject: {fileID: 1914103483}
   _pickComponent: {fileID: 1914103485}
   _boxCollider: {fileID: 1398869516}

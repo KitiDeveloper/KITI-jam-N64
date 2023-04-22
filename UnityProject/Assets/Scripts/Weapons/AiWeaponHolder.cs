@@ -27,6 +27,7 @@ public class AiWeaponHolder : MonoBehaviour
 
     }
 
+
     public void TakeWeapon(GameObject weapon)
     {
         currentWeapon = weapon.GetComponent<Weapon>();

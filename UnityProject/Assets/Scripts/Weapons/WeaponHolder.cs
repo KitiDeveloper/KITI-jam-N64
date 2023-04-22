@@ -6,7 +6,7 @@ public class WeaponHolder : MonoBehaviour
     [SerializeField] private GameObject startingWeapon;
     [SerializeField] private GameObject _offset;
     [SerializeField] private GameObject _weaponCenter;
-    [SerializeField] private Weapon currentWeapon;
+    [SerializeField] public Weapon currentWeapon;
 
     private List<GameObject> weaponAvailable = new List<GameObject>{} ;
     
@@ -48,6 +48,10 @@ public class WeaponHolder : MonoBehaviour
             currentWeapon = nextWeapon.transform.Find("Weapon").GetComponent<Weapon>();
             _offset = currentWeapon.transform.parent.Find("Visual").Find("Offset").gameObject;
             _weaponCenter = currentWeapon.transform.parent.Find("Visual").Find("WeaponCenter").gameObject;
+        }
+        if (Input.GetKeyDown(KeyCode.R) && currentWeapon.CanReload())
+        {
+            currentWeapon.Reload();
         }
     }
 

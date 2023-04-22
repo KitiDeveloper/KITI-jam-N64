@@ -14,8 +14,22 @@ public abstract class Weapon : MonoBehaviour
     public bool _reloading;
     public float _attackDistance;
     public float _attackCancelDistance;
+    public float _recoilX;
+    public float _recoilY;
+    public float _recoilZ;
+    public float _snapiness;
+    public float _returnSpeed;
+    private Transform _camera;
 
     [SerializeField] private WeaponBrain _brain;
+
+    public Vector3 targetRotation;
+    public Vector3 currentRotation;
+
+    private void Start()
+    {
+        _camera = GameObject.FindGameObjectsWithTag("Player")[0].transform.Find("CameraHolder");
+    }
 
     public void Update()
     {
@@ -39,6 +53,18 @@ public abstract class Weapon : MonoBehaviour
                 _timeBeforeNextShoot -= Time.deltaTime;
             }
         }
+
+        if (_brain.GetOwner() == WeaponBrain.Owner.Player)
+        {
+            targetRotation = Vector3.Slerp(targetRotation, Vector3.zero, _returnSpeed * Time.deltaTime);
+            currentRotation = Vector3.Slerp(currentRotation, targetRotation, _snapiness * Time.deltaTime);
+            if (!_camera)
+            {
+                _camera = GameObject.FindGameObjectsWithTag("Player")[0].transform.Find("CameraHolder");
+            }
+
+            this.transform.parent.Find("Visual").localRotation = Quaternion.Euler(currentRotation);
+        }
     }
     public  void Shoot(Vector3 direction, Vector3 spawnPosition)
     {
@@ -46,9 +72,20 @@ public abstract class Weapon : MonoBehaviour
         {
             _timeBeforeNextShoot = 1 / (_attackSpeed);
             GameObject tempBullet = Instantiate(_bullet, spawnPosition, Quaternion.identity);
-            tempBullet.transform.Find("BulletMovement").GetComponent<BulletMovement>().direction = direction;
+            BulletMovement bulletMovement = tempBullet.transform.Find("BulletMovement").GetComponent<BulletMovement>();
+            bulletMovement.direction = direction;
+            if(_brain.GetOwner() == WeaponBrain.Owner.Player)
+            {
+                bulletMovement._speed *= 2;
+            }
             Destroy(tempBullet, 5f);
             _currentBullets--;
+
+            if(_brain.GetOwner() == WeaponBrain.Owner.Player)
+            {
+                Recoil();
+            }
+
         }
         else if(_brain.GetOwner() == WeaponBrain.Owner.AI)
         {
@@ -117,5 +154,21 @@ public abstract class Weapon : MonoBehaviour
             }
         }
         
+    }
+
+    public void Reload()
+    {
+        _currentBullets = 0;
+    }
+
+    public bool CanReload()
+    {
+        return _currentBullets > 0;
+    }
+
+
+    private void Recoil()
+    {
+        targetRotation += new Vector3(_recoilX, Random.Range(-_recoilY, _recoilY), Random.Range(-_recoilZ, _recoilZ));
     }
 }
