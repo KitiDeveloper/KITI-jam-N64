@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +8,8 @@ public class FirstPersonCamManager : MonoBehaviour
 {
     public float sensX;
     public float sensY;
+    //Controller values
+    public float sensitivityValue;
 
     public Transform orientation;
     public GameMenu gameMenu;
@@ -21,6 +24,9 @@ public class FirstPersonCamManager : MonoBehaviour
 
     private void Start()
     {
+        sensitivityValue = PlayerPrefs.GetFloat("sensitivityValue");
+        sensitivitySlider.value = sensitivityValue;
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
@@ -41,6 +47,9 @@ public class FirstPersonCamManager : MonoBehaviour
 
     private void Update()
     {
+        sensitivityValue = sensitivitySlider.value;
+        PlayerPrefs.SetFloat("sensitivityValue", sensitivityValue);
+
         if (gameMenu.gameIsPaused)
         {
             Cursor.lockState = CursorLockMode.None;
