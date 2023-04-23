@@ -3906,6 +3906,7 @@ MonoBehaviour:
   gameIsPaused: 0
   pauseMenuUI: {fileID: 429058187}
   gamePlayHUD: {fileID: 649150051}
+  playerWeaponHolder: {fileID: 500352188}
   globalVolume: {fileID: 528145614}
   bloom: {fileID: 0}
 --- !u!114 &413861049
@@ -4923,6 +4924,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 489296926}
   m_CullTransparentMesh: 1
+--- !u!114 &500352188 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 687219362, guid: f8b5c6f8b1b57604b8bf8b29010cf18e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1912076268}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36a775733f28c5a4ba7ef961c7709adf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &508118844
 GameObject:
   m_ObjectHideFlags: 0

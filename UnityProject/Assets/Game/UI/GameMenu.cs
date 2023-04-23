@@ -25,6 +25,7 @@ public class GameMenu : MonoBehaviour
 
     public GameObject pauseMenuUI;
     public GameObject gamePlayHUD;
+    public WeaponHolder playerWeaponHolder;
 
     // Reference to the global volume component
     public Volume globalVolume;
@@ -87,10 +88,12 @@ public class GameMenu : MonoBehaviour
 
     public void Resume ()
     {
+        playerWeaponHolder.SetPauseRecently();
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1.0f;
         gameIsPaused = false;
         gamePlayHUD.SetActive(true);
+        
     }
 
     void Pause()

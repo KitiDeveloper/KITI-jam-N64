@@ -12,6 +12,9 @@ public class WeaponHolder : MonoBehaviour
     
     Vector3 handPosition;
 
+    private bool pauseRecently = false;
+    private float endOfPauseBreak = 0f;
+
     private void Start()
     {
         if (startingWeapon)
@@ -28,11 +31,19 @@ public class WeaponHolder : MonoBehaviour
     }
     private void Update()
     {
+        if(pauseRecently)
+        {
+            endOfPauseBreak -= Time.deltaTime;
+            if(endOfPauseBreak <= 0f)
+            {
+                pauseRecently = false;
+            }
+        }
         if (Input.GetMouseButton(0))
         {
             Attack();
         }
-        if (Input.GetKeyDown(KeyCode.E) && weaponAvailable.Count > 0)
+        if (Input.GetKeyDown(KeyCode.E) && weaponAvailable.Count > 0 && Time.timeScale > 0.1f && !pauseRecently)
         {
             GameObject lastWeapon = transform.GetChild(0).gameObject;
             lastWeapon.transform.parent = null;
@@ -80,6 +91,12 @@ public class WeaponHolder : MonoBehaviour
         }
     }
 
+
+    public void SetPauseRecently()
+    {
+        pauseRecently = true;
+        endOfPauseBreak = 0.1f;
+    }
     
 
 }
