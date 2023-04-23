@@ -222,10 +222,6 @@ public class FirstPersonEngine : MonoBehaviour
             StopSlide();
         }
 
-        if (canJump)
-        {
-            JumpUpdate();
-        }
         if(canMove) 
         {
             MovementUpdate(); 
@@ -256,8 +252,6 @@ public class FirstPersonEngine : MonoBehaviour
 
             Invoke(nameof(ResetJumpEvent), jumpCooldown);
         }
-
-        JumpUpdate();
 
 
         //FSTimer
@@ -629,7 +623,6 @@ public class FirstPersonEngine : MonoBehaviour
 
     private void StopSlide()
     {
-        Debug.Log("stopslide");
         if(StanceCheck(capsuleStandHeight)) { playerStance = PlayerStance.LowCrouch; sliding = false; lowCrouching = true; return; }
 
         sliding = false;
@@ -707,7 +700,7 @@ public class FirstPersonEngine : MonoBehaviour
 
     public void JumpUpdate()
     {
-        if (Input.GetKeyDown(jumpKey) && readyToJump && grounded && !crouching)
+        if (readyToJump && grounded && !crouching)
         {
             readyToJump = false;
 
