@@ -629,6 +629,7 @@ public class FirstPersonEngine : MonoBehaviour
 
     private void StopSlide()
     {
+        Debug.Log("stopslide");
         if(StanceCheck(capsuleStandHeight)) { playerStance = PlayerStance.LowCrouch; sliding = false; lowCrouching = true; return; }
 
         sliding = false;
