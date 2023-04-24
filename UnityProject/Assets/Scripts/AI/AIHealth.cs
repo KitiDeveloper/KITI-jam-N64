@@ -18,6 +18,10 @@ public class AIHealth : MonoBehaviour
     public void Damage(float dmg)
     {
         _health = Math.Min(_maxHealth, _health-dmg);
+        if(_brain.m_AlertState == AlertState.Relaxed)
+        {
+            _brain.m_AlertState = AlertState.Alerted;
+        }
     }
 
 

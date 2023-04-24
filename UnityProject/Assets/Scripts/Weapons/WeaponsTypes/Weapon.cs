@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.XR;
 
 public abstract class Weapon : MonoBehaviour
@@ -26,6 +27,8 @@ public abstract class Weapon : MonoBehaviour
 
     public Vector3 targetRotation;
     public Vector3 currentRotation;
+
+    public AudioMixer audioMixer;
 
     //Sounds
     [SerializeField] private List<AudioSource> _audioSources;

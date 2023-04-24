@@ -133,7 +133,7 @@ public class AiBrain : MonoBehaviour
         {
             AiMovement.UpdateMovementTarget(_player.transform.position);
             _aiVision.LookAtTarget(_player);
-            _oldOffsetPosition = _offset.transform.position;
+            _oldOffsetPosition = _offset.transform.position;    
 
             return;
         }
