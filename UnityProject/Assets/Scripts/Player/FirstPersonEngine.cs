@@ -271,15 +271,6 @@ public class FirstPersonEngine : MonoBehaviour
         CheckForWall();
         WallRunEvent();
 
-        if (Input.GetKeyDown(jumpKey) && readyToJump && isWallRunning)
-        {
-            readyToJump = false;
-
-            JumpEvent();
-
-            Invoke(nameof(ResetJumpEvent), jumpCooldown);
-        }
-
 
         //FSTimer
         time -= Time.deltaTime;
@@ -756,7 +747,7 @@ public class FirstPersonEngine : MonoBehaviour
 
     public void JumpUpdate(InputAction.CallbackContext context)
     {
-        if (readyToJump && grounded && !crouching)
+        if ((readyToJump && grounded && !crouching) || isWallRunning)
         {
             readyToJump = false;
 
