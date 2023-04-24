@@ -19,7 +19,7 @@ public class FirstPersonEngine : MonoBehaviour
     private Rigidbody rb;
     public Transform camHolder;
     public Transform feetTransform;
-    public PlayerInputs playerInputActions;
+    public PlayerInputActions playerInputActions = null;
 
     [Header("Player stats")]
     public float inAirSpeed = 0.1f;
@@ -61,6 +61,7 @@ public class FirstPersonEngine : MonoBehaviour
     public LayerMask whatIsGround;
 
     private Vector3 moveDirection;
+    private Vector2 moveVectorV2;
     private RaycastHit slopeHit;
 
     public MovementState State;
@@ -188,11 +189,33 @@ public class FirstPersonEngine : MonoBehaviour
 
     void Awake()
     {
+        //Input system
+        playerInputActions = new PlayerInputActions();
+
+        //---------------------------------------------------------------------
+
         cameraHeight = camHolder.transform.localPosition.y;
         FootstepAudioSource = gameObject.AddComponent<AudioSource>();
         ClothMovSource = gameObject.AddComponent<AudioSource>();
         JumpAudioSource = gameObject.AddComponent<AudioSource>();
         Swapper = GetComponent<FootstepSwapper>();
+    }
+
+    private void OnEnable()
+    {
+        //Input system
+        playerInputActions.Enable();
+        playerInputActions.Player.Movement.performed += NewMovePlayer;
+        playerInputActions.Player.Movement.canceled += NewMovePlayerCancelled;
+    }
+
+    private void OnDisable()
+    {
+        //Input system
+        playerInputActions.Disable();
+        playerInputActions.Player.Movement.performed -= NewMovePlayer;
+        playerInputActions.Player.Movement.canceled -= NewMovePlayerCancelled;
+
     }
 
     private void Start()
@@ -298,14 +321,7 @@ public class FirstPersonEngine : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (canMove) { MovePlayer(); }
-        //InputAction.CallbackContext
-
-        //Vector2 inputVector = playerInputActions.Player.Movement.ReadValue<Vector2>();
-        //NewMovePlayer(InputAction.CallbackContext.);
-
-        if (grounded == true) { rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force); }
-        else if (grounded == false) { rb.AddForce(moveDirection.normalized * moveSpeed * 10f * inAirSpeed, ForceMode.Force); }
+        NewMovePlayerV2toV3();
 
         if (sliding)
         {
@@ -428,10 +444,10 @@ public class FirstPersonEngine : MonoBehaviour
         else if (grounded == false) { rb.AddForce(moveDirection.normalized * moveSpeed * 10f * inAirSpeed, ForceMode.Force); }
     }
 
-    public void NewMovePlayer(Vector2 context)
+    private void NewMovePlayerV2toV3()
     {
-        Vector3 goingDir = new Vector3(context.x, 0, context.y);
-        moveDirection = orientation.forward * goingDir.x + orientation.right * goingDir.y;
+        moveDirection = new Vector3(moveVectorV2.x, 0, moveVectorV2.y);
+        moveDirection = orientation.forward * moveDirection.z + orientation.right * moveDirection.x;
 
         if (OnSlope() && !exitingSlope)
         {
@@ -445,6 +461,16 @@ public class FirstPersonEngine : MonoBehaviour
 
         if (grounded == true) { rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force); }
         else if (grounded == false) { rb.AddForce(moveDirection.normalized * moveSpeed * 10f * inAirSpeed, ForceMode.Force); }
+    }
+
+    public void NewMovePlayer(InputAction.CallbackContext value)
+    {
+        moveVectorV2 = value.ReadValue<Vector2>();
+    }
+
+    private void NewMovePlayerCancelled(InputAction.CallbackContext value)
+    {
+        moveVectorV2 = Vector2.zero;
     }
 
     private void SpeedControl()
