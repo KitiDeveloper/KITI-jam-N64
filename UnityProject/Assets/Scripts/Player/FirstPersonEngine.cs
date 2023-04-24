@@ -237,7 +237,6 @@ public class FirstPersonEngine : MonoBehaviour
         XZ_DirInput();
 
         CalculateCameraHeight();
-        InputHandler();
 
         if (Input.GetKeyDown(SlideKey) && (verticalInput > 0) && !crouching && !lowCrouching)
         {
@@ -417,24 +416,7 @@ public class FirstPersonEngine : MonoBehaviour
         SpeedControl();
     }
 
-    public void MovePlayer()
-    {
-        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
-
-        if (OnSlope() && !exitingSlope)
-        {
-            rb.AddForce(GetSlopeMoveDir(moveDirection) * moveSpeed * 20f, ForceMode.Force);
-
-            if (rb.velocity.y > 0)
-            {
-                rb.AddForce(Vector3.down * 80f, ForceMode.Force);
-            }
-        }
-
-        if (grounded == true) { rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force); }
-        else if (grounded == false) { rb.AddForce(moveDirection.normalized * moveSpeed * 10f * inAirSpeed, ForceMode.Force); }
-    }
-
+    
     private void NewMovePlayerV2toV3()
     {
         moveDirection = new Vector3(moveVectorV2.x, 0, moveVectorV2.y);
@@ -510,17 +492,10 @@ public class FirstPersonEngine : MonoBehaviour
         LowCrouch
     }
 
-    public void InputHandler()
+    public void RunIntoStand()
     {
-        if (Input.GetKeyDown(CrouchKey) && canCrouch)
-        {
-            CrouchEvent();
-        }
-        else if (Input.GetKeyDown(LowCrouchKey) && canCrouch)
-        {
-            LowCrouchEvent();
-        }
-        else if (Input.GetKey(SprintKey) && !sliding)
+        Debug.Log("is running");
+        if (!sliding)
         {
             if (StanceCheck(capsuleStandHeight)) { return; }
 
