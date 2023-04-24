@@ -44,14 +44,8 @@ public abstract class Weapon : MonoBehaviour
     public Vector3 targetRotation;
     public Vector3 currentRotation;
 
-<<<<<<< Updated upstream
-    public AudioMixer audioMixer;
+    //public AudioMixer audioMixer;
 
-    //Sounds
-    [SerializeField] private List<AudioSource> _audioSources;
-
-=======
->>>>>>> Stashed changes
     private void Start()
     {
         _camera = GameObject.FindGameObjectsWithTag("Player")[0].transform.Find("CameraHolder");
