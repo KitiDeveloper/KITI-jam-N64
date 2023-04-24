@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
 public class FirstPersonEngine : MonoBehaviour
@@ -17,6 +19,7 @@ public class FirstPersonEngine : MonoBehaviour
     private Rigidbody rb;
     public Transform camHolder;
     public Transform feetTransform;
+    public PlayerInputs playerInputActions;
 
     [Header("Player stats")]
     public float inAirSpeed = 0.1f;
@@ -222,6 +225,7 @@ public class FirstPersonEngine : MonoBehaviour
             StopSlide();
         }
 
+
         if(canMove) 
         {
             MovementUpdate(); 
@@ -295,6 +299,13 @@ public class FirstPersonEngine : MonoBehaviour
     private void FixedUpdate()
     {
         if (canMove) { MovePlayer(); }
+        //InputAction.CallbackContext
+
+        //Vector2 inputVector = playerInputActions.Player.Movement.ReadValue<Vector2>();
+        //NewMovePlayer(InputAction.CallbackContext.);
+
+        if (grounded == true) { rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force); }
+        else if (grounded == false) { rb.AddForce(moveDirection.normalized * moveSpeed * 10f * inAirSpeed, ForceMode.Force); }
 
         if (sliding)
         {
@@ -402,6 +413,25 @@ public class FirstPersonEngine : MonoBehaviour
     public void MovePlayer()
     {
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+
+        if (OnSlope() && !exitingSlope)
+        {
+            rb.AddForce(GetSlopeMoveDir(moveDirection) * moveSpeed * 20f, ForceMode.Force);
+
+            if (rb.velocity.y > 0)
+            {
+                rb.AddForce(Vector3.down * 80f, ForceMode.Force);
+            }
+        }
+
+        if (grounded == true) { rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force); }
+        else if (grounded == false) { rb.AddForce(moveDirection.normalized * moveSpeed * 10f * inAirSpeed, ForceMode.Force); }
+    }
+
+    public void NewMovePlayer(Vector2 context)
+    {
+        Vector3 goingDir = new Vector3(context.x, 0, context.y);
+        moveDirection = orientation.forward * goingDir.x + orientation.right * goingDir.y;
 
         if (OnSlope() && !exitingSlope)
         {
@@ -698,7 +728,7 @@ public class FirstPersonEngine : MonoBehaviour
     //JumpManager Variables
     //---------------------------------------------------------------------
 
-    public void JumpUpdate()
+    public void JumpUpdate(InputAction.CallbackContext context)
     {
         if (readyToJump && grounded && !crouching)
         {
@@ -851,5 +881,9 @@ public class FirstPersonEngine : MonoBehaviour
         }
 
     }
+
+    //-------------------------------------------------------------------------
+    //Some new input stuff
+    //-------------------------------------------------------------------------
 
 }
