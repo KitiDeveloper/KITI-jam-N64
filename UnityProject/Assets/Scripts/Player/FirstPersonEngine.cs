@@ -722,7 +722,7 @@ public class FirstPersonEngine : MonoBehaviour
 
     public void JumpUpdate(InputAction.CallbackContext context)
     {
-        if ((readyToJump && grounded && !crouching) || isWallRunning)
+        if ((readyToJump && grounded && !crouching & context.performed) || isWallRunning & context.performed)
         {
             readyToJump = false;
 
