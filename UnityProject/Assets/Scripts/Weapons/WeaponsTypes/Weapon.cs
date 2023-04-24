@@ -23,20 +23,47 @@ public abstract class Weapon : MonoBehaviour
     public float _returnSpeed;
     private Transform _camera;
 
+    //Audio Variables
+    [Range(0.1f, 0.7f)]
+    public float VolumeMultiplier = 0.1f;
+    [Range(0.1f, 0.7f)]
+    public float PitchMultiplier = 0.1f;
+
+    public AudioSource WeaponAudioSource;
+    public AudioClip[] UsualShotSounds;
+    public AudioClip[] LastShotSounds;
+    public AudioClip[] OutOfAmmoSounds;
+    private int CurrentUsusalShotNumber;
+    private int CurrentLastShotNumber;
+    private int CurrentOutOfAmmoNumber;
+    //private bool WasLastShot;
+
+
     [SerializeField] private WeaponBrain _brain;
 
     public Vector3 targetRotation;
     public Vector3 currentRotation;
 
+<<<<<<< Updated upstream
     public AudioMixer audioMixer;
 
     //Sounds
     [SerializeField] private List<AudioSource> _audioSources;
 
+=======
+>>>>>>> Stashed changes
     private void Start()
     {
         _camera = GameObject.FindGameObjectsWithTag("Player")[0].transform.Find("CameraHolder");
-    }
+
+        WeaponAudioSource = gameObject.AddComponent<AudioSource>();
+        ShuffleLastShotSounds();
+        ShuffleOutOfAmmoSounds();
+        ShuffleUsualShotSounds();
+        CurrentUsusalShotNumber = 0;
+        CurrentLastShotNumber = 0;
+        CurrentOutOfAmmoNumber = 0;
+}
 
     public void Update()
     {
@@ -86,17 +113,48 @@ public abstract class Weapon : MonoBehaviour
                 bulletMovement._speed *= 2;
             }
             Destroy(tempBullet, 5f);
+
+            if (_currentBullets > 1)
+            {
+                WeaponAudioSource.clip = UsualShotSounds[CurrentUsusalShotNumber];
+                WeaponAudioSource.volume = Random.Range(1.0f - VolumeMultiplier, 1.0f);
+                WeaponAudioSource.pitch = Random.Range(1.0f - PitchMultiplier, 1.0f);
+                WeaponAudioSource.PlayOneShot(WeaponAudioSource.clip);
+                CurrentUsusalShotNumber = CurrentUsusalShotNumber + 1;
+                if (CurrentUsusalShotNumber == UsualShotSounds.Length)
+                {
+                    ShuffleUsualShotSounds();
+                    CurrentUsusalShotNumber = 0;
+                }
+                Debug.Log("UsualShot");
+            }
+
+            if (_currentBullets == 1)
+            {
+                WeaponAudioSource.clip = LastShotSounds[CurrentLastShotNumber];
+                WeaponAudioSource.volume = Random.Range(1.0f - VolumeMultiplier, 1.0f);
+                WeaponAudioSource.pitch = Random.Range(1.0f - PitchMultiplier, 1.0f);
+                WeaponAudioSource.PlayOneShot(WeaponAudioSource.clip);
+                CurrentLastShotNumber = CurrentLastShotNumber + 1;
+                if (CurrentLastShotNumber == LastShotSounds.Length)
+                {
+                    ShuffleLastShotSounds();
+                    CurrentLastShotNumber = 0;
+                }
+                //WasLastShot = true;
+                Debug.Log("LastShot");
+            }
+
+
+
             _currentBullets--;
 
             if(_brain.GetOwner() == WeaponBrain.Owner.Player)
             {
                 Recoil();
             }
-            if(_audioSources.Count > 0)
-            {
-                int random = Random.Range(0, _audioSources.Count);
-                _audioSources[random].Play();   
-            }
+
+            
 
         }
         else if(_brain.GetOwner() == WeaponBrain.Owner.AI)
@@ -137,6 +195,21 @@ public abstract class Weapon : MonoBehaviour
         }
         else
         {
+            if (_currentBullets == 0)
+            {
+                WeaponAudioSource.clip = OutOfAmmoSounds[CurrentOutOfAmmoNumber];
+                WeaponAudioSource.volume = Random.Range(1.0f - VolumeMultiplier, 1.0f);
+                WeaponAudioSource.pitch = Random.Range(1.0f - PitchMultiplier, 1.0f);
+                WeaponAudioSource.PlayDelayed(0.1f);
+                CurrentOutOfAmmoNumber = CurrentOutOfAmmoNumber + 1;
+                if (CurrentOutOfAmmoNumber == OutOfAmmoSounds.Length)
+                {
+                    ShuffleOutOfAmmoSounds();
+                    CurrentOutOfAmmoNumber = 0;
+                }
+                //WasLastShot = false;
+                Debug.Log("Out of ammo");
+            }
             return false;
         }
     }
@@ -182,5 +255,38 @@ public abstract class Weapon : MonoBehaviour
     private void Recoil()
     {
         targetRotation += new Vector3(_recoilX, Random.Range(-_recoilY, _recoilY), Random.Range(-_recoilZ, _recoilZ));
+    }
+
+    private void ShuffleUsualShotSounds()
+    {
+        for (int i = 0; i < UsualShotSounds.Length; i++)
+        {
+            AudioClip tempSound = UsualShotSounds[i];
+            int n = Random.Range(i, UsualShotSounds.Length);
+            UsualShotSounds[i] = UsualShotSounds[n];
+            UsualShotSounds[n] = tempSound;
+        }
+    }
+
+    private void ShuffleLastShotSounds()
+    {
+        for (int i = 0; i < LastShotSounds.Length; i++)
+        {
+            AudioClip tempSound = LastShotSounds[i];
+            int n = Random.Range(i, LastShotSounds.Length);
+            LastShotSounds[i] = LastShotSounds[n];
+            LastShotSounds[n] = tempSound;
+        }
+    }
+
+    private void ShuffleOutOfAmmoSounds()
+    {
+        for (int i = 0; i < OutOfAmmoSounds.Length; i++)
+        {
+            AudioClip tempSound = OutOfAmmoSounds[i];
+            int n = Random.Range(i, OutOfAmmoSounds.Length);
+            OutOfAmmoSounds[i] = OutOfAmmoSounds[n];
+            OutOfAmmoSounds[n] = tempSound;
+        }
     }
 }
