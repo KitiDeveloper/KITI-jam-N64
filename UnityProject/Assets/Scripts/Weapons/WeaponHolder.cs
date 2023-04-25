@@ -77,6 +77,7 @@ public class WeaponHolder : MonoBehaviour
         if (other.CompareTag("Weapon") && (other.gameObject.GetComponent<WeaponBrain>().GetOwner() == WeaponBrain.Owner.None))
         {
             weaponAvailable.Add(other.gameObject);
+
         }
     }
 
@@ -97,6 +98,5 @@ public class WeaponHolder : MonoBehaviour
         pauseRecently = true;
         endOfPauseBreak = 0.1f;
     }
-    
 
 }
