@@ -12,7 +12,8 @@ public class AiVision : MonoBehaviour
     private GameObject _player;
     [SerializeField] private GameObject AIMainGameObject;
     [SerializeField] private AiBrain AiBrain;
-
+    [SerializeField] private GameObject upVisible;
+    [SerializeField] private GameObject downVisible;
     
     
     //Settings
@@ -35,8 +36,8 @@ public class AiVision : MonoBehaviour
             Vector3 directionToPlayer = _player.transform.position - AIMainGameObject.transform.position;
 
             RaycastHit[] hits1 = Physics.RaycastAll(AIMainGameObject.transform.position, _player.transform.position - AIMainGameObject.transform.position, FOVDistance);
-            RaycastHit[] hits2 = Physics.RaycastAll(AIMainGameObject.transform.position, _player.transform.Find("UpVisible").position - AIMainGameObject.transform.position, FOVDistance);
-            RaycastHit[] hits3 = Physics.RaycastAll(AIMainGameObject.transform.position, _player.transform.Find("DownVisible").position - AIMainGameObject.transform.position, FOVDistance);
+            RaycastHit[] hits2 = Physics.RaycastAll(AIMainGameObject.transform.position, upVisible.transform.position - AIMainGameObject.transform.position, FOVDistance);
+            RaycastHit[] hits3 = Physics.RaycastAll(AIMainGameObject.transform.position, downVisible.transform.position - AIMainGameObject.transform.position, FOVDistance);
             if (CheckHit(hits1) || CheckHit(hits2) || CheckHit(hits3))
             {
                 AiBrain.m_SoftVisionOnPlayer = true;
