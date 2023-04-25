@@ -130,6 +130,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f2513de15ebd7604b8f782401784153b, type: 3}
   - {fileID: 8300000, guid: 17f9a8f250dcc86468d200e3535e88ff, type: 3}
   - {fileID: 8300000, guid: 4c443466465cf004795c878234debbf6, type: 3}
+  InitialSnapshot: {fileID: 24500006, guid: 16123313f9002a04b8628c9fb6b8f517, type: 2}
+  WhileShooting: {fileID: 3901958127971968216, guid: 16123313f9002a04b8628c9fb6b8f517,
+    type: 2}
   _brain: {fileID: 1398869514}
   targetRotation: {x: 0, y: 0, z: 0}
   currentRotation: {x: 0, y: 0, z: 0}

@@ -263,8 +263,6 @@ public class FirstPersonEngine : MonoBehaviour
                 if (!gun) return;
             }
             gun.Shoot();
-            Debug.Log("SHOOOT!");
-            WhileShooting.TransitionTo(1.0f);
         }
 
         CheckForWall();

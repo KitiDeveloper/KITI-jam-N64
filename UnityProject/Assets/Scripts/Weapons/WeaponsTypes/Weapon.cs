@@ -37,6 +37,10 @@ public abstract class Weapon : MonoBehaviour
     private int CurrentLastShotNumber;
     private int CurrentOutOfAmmoNumber;
     //private bool WasLastShot;
+    public AudioMixerSnapshot InitialSnapshot;
+    public AudioMixerSnapshot WhileShooting;
+    private float TimerForSnapshot;
+    private bool IsTimerForSnapshotSet = false;
 
 
     [SerializeField] private WeaponBrain _brain;
@@ -57,6 +61,7 @@ public abstract class Weapon : MonoBehaviour
         CurrentUsusalShotNumber = 0;
         CurrentLastShotNumber = 0;
         CurrentOutOfAmmoNumber = 0;
+        TimerForSnapshot = 0;
 }
 
     public void Update()
@@ -93,6 +98,23 @@ public abstract class Weapon : MonoBehaviour
 
             this.transform.parent.Find("Visual").localRotation = Quaternion.Euler(currentRotation);
         }
+
+        if (IsTimerForSnapshotSet)
+        {
+            TimerForSnapshot = TimerForSnapshot + Time.deltaTime;
+            Debug.Log(TimerForSnapshot.ToString());
+
+            if (TimerForSnapshot > 7.0f)
+            {
+                InitialSnapshot.TransitionTo(1.0f);
+                IsTimerForSnapshotSet = false;
+                TimerForSnapshot = 0;
+            }
+
+        }
+        
+       
+
     }
     public  void Shoot(Vector3 direction, Vector3 spawnPosition)
     {
@@ -139,7 +161,8 @@ public abstract class Weapon : MonoBehaviour
                 Debug.Log("LastShot");
             }
 
-
+            WhileShooting.TransitionTo(0.5f);
+            IsTimerForSnapshotSet = true;
 
             _currentBullets--;
 
