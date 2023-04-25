@@ -120,9 +120,11 @@ public abstract class Weapon : MonoBehaviour
     {
         if (CanShoot())
         {
-            _timeBeforeNextShoot = 1 / (_attackSpeed);
+            _timeBeforeNextShoot = 1 / (_attackSpeed);  
             GameObject tempBullet = Instantiate(_bullet, spawnPosition, Quaternion.identity);
+            tempBullet.transform.LookAt(this.transform.position - direction);
             BulletMovement bulletMovement = tempBullet.transform.Find("BulletMovement").GetComponent<BulletMovement>();
+            bulletMovement.owner = _brain.GetOwner();
             bulletMovement.direction = direction;
             if(_brain.GetOwner() == WeaponBrain.Owner.Player)
             {

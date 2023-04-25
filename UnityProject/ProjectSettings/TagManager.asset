@@ -9,6 +9,7 @@ TagManager:
   - Bullet
   - Map
   - WeaponVisualSettings
+  - Score
   layers:
   - Default
   - TransparentFX

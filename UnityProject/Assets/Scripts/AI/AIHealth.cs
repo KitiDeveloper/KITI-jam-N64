@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class AIHealth : MonoBehaviour
 {
-    [SerializeField] private float _health;
+    [SerializeField] public float _health;
     [SerializeField] private float _maxHealth;
     [SerializeField] private AiBrain _brain;
 

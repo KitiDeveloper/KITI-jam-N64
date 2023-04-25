@@ -45,6 +45,11 @@ public class WeaponHolder : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.E) && weaponAvailable.Count > 0 && Time.timeScale > 0.1f && !pauseRecently)
         {
+            ClearAvailableWeapon();
+            if(weaponAvailable.Count <= 0)
+            {
+                return;
+            }
             GameObject lastWeapon = transform.GetChild(0).gameObject;
             lastWeapon.transform.parent = null;
             lastWeapon.transform.rotation = Quaternion.identity;
@@ -59,11 +64,9 @@ public class WeaponHolder : MonoBehaviour
             currentWeapon = nextWeapon.transform.Find("Weapon").GetComponent<Weapon>();
             _offset = currentWeapon.transform.parent.Find("Visual").Find("Offset").gameObject;
             _weaponCenter = currentWeapon.transform.parent.Find("Visual").Find("WeaponCenter").gameObject;
+            currentWeapon._reloading = false;
         }
-        if (Input.GetKeyDown(KeyCode.R) && currentWeapon.CanReload())
-        {
-            currentWeapon.Reload();
-        }
+        
     }
 
     public void Attack()
@@ -99,4 +102,14 @@ public class WeaponHolder : MonoBehaviour
         endOfPauseBreak = 0.1f;
     }
 
+    public void ClearAvailableWeapon()
+    {
+        foreach(GameObject weapon in weaponAvailable)
+        {
+            if (!weapon)
+            {
+                weaponAvailable.Remove(weapon);
+            }
+        }
+    }
 }

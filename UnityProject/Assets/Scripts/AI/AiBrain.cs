@@ -15,7 +15,6 @@ public class AiBrain : MonoBehaviour
     [SerializeField] private GameObject AiHead;
     [SerializeField] private AiMovement AiMovement;
     [SerializeField] private AIInterestPoint AIInterestPoint;
-    [SerializeField] private Renderer AIRenderer;
     [SerializeField] private Patrol AIPatrol;
     [SerializeField] private AIHealth AIHealth;
     [SerializeField] private GameObject _offset;
@@ -55,7 +54,6 @@ public class AiBrain : MonoBehaviour
     {
         _aiVision.SetPlayerInLOS();
         UpdateAlertState();
-        UpdateColor();
         UpdateActionState();
         UpdateBehavior();
     }
@@ -181,32 +179,15 @@ public class AiBrain : MonoBehaviour
         }
     }
 
-    private void UpdateColor()
-    {
-        if (m_ActionState == ActionState.POI)
-        {
-            AIRenderer.material.color = Color.white;
-        }
-        else if (m_ActionState == ActionState.Chase)
-        {
-            AIRenderer.material.color = Color.yellow;
-        }
-        else if (m_ActionState == ActionState.Attack)
-        {
-            AIRenderer.material.color = Color.red;
-        }
-        else if (m_ActionState == ActionState.LKP)
-        {
-            AIRenderer.material.color = Color.blue;
-        }else if(m_ActionState == ActionState.Patrol)
-        {
-            AIRenderer.material.color = Color.grey;
-        }
-    }
 
-    public void TakeDamage(int dmg)
+    public bool TakeDamage(int dmg)
     {
         AIHealth.Damage(dmg);
+        if(AIHealth._health <= 0)
+        {
+            return true;
+        }
+        return false;
     }
 
     public void Die()

@@ -10,6 +10,7 @@ public class WeaponBrain : MonoBehaviour
     public AudioSource WeaponPickUpSource;
     public AudioClip[] WeaponPickUpSounds;
     private int CurrentWeaponPickUpNumber;
+    [SerializeField] private Weapon _weapon;
     //public AudioMixerGroup WeaponMixerGroup;
 
 
@@ -34,6 +35,14 @@ public class WeaponBrain : MonoBehaviour
         WeaponPickUpSource.outputAudioMixerGroup = WeaponMixerGroup;*/
         ShuffleWeaponPickUpSounds();
         CurrentWeaponPickUpNumber = 0;
+    }
+
+    private void Update()
+    {
+        if(_weapon._currentBullets <= 0 && _owner == Owner.None)
+        {
+            Destroy(gameObject);
+        }
     }
 
     public Owner GetOwner()
@@ -62,10 +71,15 @@ public class WeaponBrain : MonoBehaviour
 
     public void Drop()
     {
+        if(_owner == Owner.AI)
+        {
+            _weapon._currentBullets = _weapon._magazineSize;
+        }
         _owner = Owner.None;
         _pickObject.SetActive(true);
         _boxCollider.enabled = true;
         _rb.isKinematic = false;
+        
     }
 
     private void OnTriggerEnter(Collider other)
